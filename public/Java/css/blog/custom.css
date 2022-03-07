@@ -1,0 +1,39 @@
+/*! blog custom css */
+
+a {
+  color: #212529;
+  transition: all 0.2s;
+}
+
+.planspan {
+	color: #212529;
+	font-size: 15px;
+}
+
+.weekday {
+	color: black;
+	font-size: 15px;
+	text-align: center;
+}
+
+.saturday {
+	color: blue;
+	font-size: 15px;
+	text-align: center;
+}
+
+.sunday {
+	color: red;
+	font-size: 15px;
+	text-align: center;
+}
+
+.button-div {
+	font-size: 15px;
+	text-align: right;
+	margin-right: 5%;
+}
+
+.center {
+	text-align: center;
+}

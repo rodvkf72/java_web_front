@@ -1,0 +1,386 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+ nav ul a,
+ nav .brand-logo {
+   color: #444;
+ }
+ 
+ p {
+   line-height: 2rem;
+ }
+ 
+ .sidenav-trigger {
+   color: #26a69a;
+ }
+ 
+ .parallax-container {
+   min-height: 500px;
+   line-height: 0;
+   height: 70%;
+   color: rgb(255, 124, 72);
+   background:rgba(255,255,255,.3);
+ }
+   .parallax-container .section {
+     width: 100%;
+   }
+ 
+ @media only screen and (max-width : 992px) {
+   .parallax-container .section {
+     position: absolute;
+     top: 40%;
+   }
+   #index-banner .section {
+     top: 10%;
+   }
+ }
+ 
+ @media only screen and (max-width : 600px) {
+   #index-banner .section {
+     top: 0;
+   }
+   .border {
+     margin-left: 2.5%;
+   }
+ }
+ 
+ .icon-block {
+   padding: 0 15px;
+ }
+ .icon-block .material-icons {
+   font-size: inherit;
+ }
+ 
+ footer.page-footer {
+   margin:0;
+   background-color:rgba(0,0,0,.4)
+ }
+
+ .box{
+   -ms-overflow-style: none;
+ }
+ .box::-webkit-scrollbar{
+   display: none;
+ }
+
+ hr.three {
+   height: 51%;
+   width: 0px;
+ }
+
+ .border {
+  overflow: hidden;
+  display: inline-block;
+  height: auto;
+  border: 1px solid gray;
+}
+ 
+ .round {
+   float: left;
+   overflow: hidden;
+   width: 13.33%;
+   height: auto;
+
+   margin-left: 0.83%;
+   margin-top: 0.83%;
+   border-radius: 5px;
+   border: 1px solid black;
+ }
+
+ .img-padding {
+  width: 100%;
+  height: 20%;
+ }
+
+ .test {
+  height: 3.5%;
+ }
+
+ .line {
+  text-align: left;
+  line-height: 25px;
+ }
+
+ .span-line {
+   text-align: left;
+   line-height: 30px;
+ }
+
+ .content-view {
+     text-align: center;
+     float: right;
+     width: 76%;
+     height: auto;
+     overflow: hidden;
+     background: white;
+      /*
+   text-align: center;
+   width: 60%;
+   margin-left: 20%;
+   height: auto;
+   overflow: hidden;
+   background-color: white;
+   border-left: 1px solid gray;
+   border-right: 1px solid gray;
+      */
+ }
+
+ .content-detail {
+   text-align: center;
+   float: right;
+   margin-right: 10%;
+   width: 80%;
+   height: auto;
+   overflow: hidden;
+   background: white;
+ }
+
+ .explanation {
+   text-align: left;
+   width: 80%;
+   margin-left: 10%;
+   height: auto;
+ }
+
+ .hr-color {
+   border-color: white;
+ }
+
+ .margin-auto {
+  width: 60%;
+  margin: auto;
+  padding-right: 1%;
+  text-align: right;
+ }
+
+ .border-hr {
+     width: 60%;
+ }
+ .left-side {
+     float: left;
+     position: fixed;
+     left:0;
+     z-index: 3;
+     width: 24%;
+     height: 100%;
+ }
+ .other-box1 {
+     float: right;
+     text-align: center;
+     width: 76%;
+ }
+ .other-box2 {
+     float: right;
+     text-align: center;
+     width: 76%;
+ }
+
+.blank {
+    float: left;
+    height: 50%;
+    margin-bottom: -50px;
+}
+
+.content {
+    position: relative;
+    clear: both;
+    height: 100px;
+}
+
+.opacity {
+    text-align: center;
+}
+
+.opacity::after {
+    background-image: url('/static/image/leftside.jpg');
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    position:absolute;
+    opacity: 0.5!important;
+    filter: alpha(opacity=50);
+    z-index: -1;
+    content:"";
+}
+
+.logo-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 20%;
+    overflow: hidden;
+    border: 2px solid gray;
+    margin: auto;
+}
+
+.logo-link {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 20%;
+    /*border: 1px solid gray;*/
+}
+
+#blank {
+    float: left;
+    height: 20%;
+    margin-bottom: -50px;
+}
+
+#content {
+    position: relative;
+    clear: both;
+    height: 100px;
+}
+
+/* 맨 위로 버튼 */
+#wrap{
+    margin:0 auto;
+    width:300px;
+}
+#back-to-top {
+    display: inline-block;
+    background-color: #FF9800;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color .3s,
+    opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+}
+#back-to-top::after {
+    content: "\f077";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+    color: #fff;
+}
+#back-to-top:hover {
+    cursor: pointer;
+    background-color: #333;
+}
+#back-to-top:active {
+    background-color: #555;
+}
+#back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+ body {
+     -ms-overflow-style: none;
+ }
+ ::-webkit-scrollbar {
+     display: none;
+ }
+
+
+ @media only screen and (max-width: 992px) {
+  .margin-auto {
+    width: 100%;
+    padding-right: 2%;
+    margin: auto;
+    text-align: right;
+  }
+  .round {
+    float: left;
+    overflow: hidden;
+    width: 19%;
+    height: auto;
+    margin-left: 0.83%;
+    margin-top: 0.83%;
+    border-radius: 5px;
+    border: 1px solid black;
+  }
+  .img-padding {
+   width: 100%;
+   height: 20%;
+   border-radius: 5px;
+  }
+  .test {
+    height: 5%;
+  }
+  .border-hr {
+      width:100%;
+  }
+  .left-side {
+      position: fixed;
+      left:0;
+      z-index: 3;
+      width: 1%;
+      height: 100%;
+  }
+  .content-view {
+      text-align: center;
+      float: right;
+      width: 99%;
+      height: auto;
+      overflow: hidden;
+      background: white;
+  }
+
+  .content-detail {
+    text-align: center;
+    float: right;
+    margin-right: 10%;
+    width: 80%;
+    height: auto;
+    overflow: hidden;
+    background: white;
+  }
+
+  .other-box1 {
+      float: right;
+      width: 99%;
+  }
+  .other-box2 {
+      float: right;
+      width: 99%;
+  }
+  .logo-image {
+      width: 0px;
+      height: 0px;
+  }
+
+  .logo-text {
+      width: 0;
+      height: 0;
+      font-size: 0;
+      line-height: 0;
+      position:absolute;
+      overflow: hidden;
+  }
+}
+
+#loading {
+ width: 100%;
+ height: 100%;
+ top: 0;
+ left: 0;
+ position: fixed;
+ display: block;
+ opacity: 0.7;
+ background-color: #fff;
+ z-index: 99;
+ text-align: center;
+}
+
+#loading-image {
+  position: absolute;
+  top: 100px;
+  left: 240px;
+  z-index: 100;
+}
