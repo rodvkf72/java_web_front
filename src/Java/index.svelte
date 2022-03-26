@@ -44,7 +44,7 @@
             </p>
             <p></p>
             <div class="input-group input-group-newsletter">
-	            <form method="POST" action="/login">
+	            <form method="POST" action="http://localhost:8080/login">
 		            <input name="id" class="form-control" placeholder="Input ID..." aria-label="Input ID..." aria-discribedby="submit-button">
 		            <input name="pw" type="password" class="form-control" placeholder="Input PW..." aria-label="Input PW..." aria-discribedby="submit-button">
 		            <input class="btn btn-secondary" type="submit" id="submit-button" value="관리자 접속">

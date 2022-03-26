@@ -1,3 +1,5 @@
+
+
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
@@ -18,7 +20,16 @@
             <a class="nav-link" href="/project">Project</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/onlinejudge">Online Judge</a>
+            <script>
+              function goPost() {
+                var f = document.createElement('form');
+                f.setAttribute('method', 'post');
+                f.setAttribute('action', 'http://localhost:8080/b_judge/1');
+                document.body.appendChild(f);
+                f.submit();
+              }
+            </script>
+            <a class="nav-link" href="javascript:goPost();">Online Judge</a>
           </li>
         </ul>
       </div>

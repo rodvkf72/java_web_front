@@ -5,6 +5,8 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
+  <script src="/Java/vendor/comming/jquery/jquery.min.js"></script>
+
   <!-- Bootstrap core CSS -->
   <link href="/Java/vendor/blog/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -18,7 +20,6 @@
   <link href="/Java/css/blog/custom.css" rel="stylesheet">
 
     <!-- Bootstrap core JavaScript -->
-  <script src="/Java/vendor/comming/jquery/jquery.min.js"></script>
   <script src="/Java/vendor/comming/bootstrap/js/bootstrap.bundle.min.js"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </svelte:head>
