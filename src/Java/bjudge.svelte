@@ -2,7 +2,8 @@
   export let page;
 
   let resultList = [];
-  window.onload = async function() {
+
+  async function solvedList() {
     let list = [];
     let result = fetch('http://localhost:8080/b_judge/' + page,
       {
@@ -20,7 +21,10 @@
     await result;
     resultList = list.list;
   }
+
+  solvedList();
 </script>
+
 
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('/Java/image/home-bg.jpg')">

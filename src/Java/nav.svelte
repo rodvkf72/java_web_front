@@ -20,16 +20,19 @@
             <a class="nav-link" href="/project">Project</a>
           </li>
           <li class="nav-item">
+            <!--
             <script>
               function goPost() {
                 var f = document.createElement('form');
                 f.setAttribute('method', 'post');
-                f.setAttribute('action', 'http://localhost:8080/b_judge/1');
+                f.setAttribute('action', 'http://localhost:4000/b_judge/1');
                 document.body.appendChild(f);
                 f.submit();
               }
             </script>
             <a class="nav-link" href="javascript:goPost();">Online Judge</a>
+            -->
+            <a class="nav-link" href="/coding">Online Judge</a>
           </li>
         </ul>
       </div>

@@ -19,7 +19,7 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto" style="text-align: center;">
       	<hr>
-      	<br><a href="/coding/b_judge">Baekjoon Online Judge</a><br>&nbsp;
+      	<br><a href="/coding/b_judge/1">Baekjoon Online Judge</a><br>&nbsp;
       	
       	<!--
       	<hr>
