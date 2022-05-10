@@ -1,8 +1,29 @@
 <script>
+  import {onMount} from 'svelte';
   export let page;
 
   let resultList = [];
-
+/*
+  onMount(async() => {
+    let list = [];
+    let result = fetch('http://localhost:8080/b_judge/' + page,
+      {
+        method: 'POST',
+        headers: {
+          "Content-Type" : "application/json",
+        }
+      }
+    ).then((res) => {
+      return res.json();
+    }).then((json) => {
+      list.json;
+    });
+    
+    await result;
+    resultList = list.list;
+  })
+*/
+  
   async function solvedList() {
     let list = [];
     let result = fetch('http://localhost:8080/b_judge/' + page,
@@ -23,6 +44,7 @@
   }
 
   solvedList();
+  
 </script>
 
 
@@ -56,7 +78,7 @@
             {#each resultList as item}
               <tbody style="text-align: center;">
                 <td><hr>&nbsp;<br>{item.no}<br>&nbsp;</td>
-                <td><hr>&nbsp;<br><a href="/b_judge/view/{item.no}">{item.title}</a><br>&nbsp;</td>
+                <td><hr>&nbsp;<br><a href="/coding/b_judge/view/{item.no}">{item.title}</a><br>&nbsp;</td>
               </tbody>
             {/each}
         </table>

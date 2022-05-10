@@ -14,7 +14,7 @@
             <a class="nav-link" href="/main">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/noticeboard">NoticeBoard</a>
+            <a class="nav-link" href="/noticeboard/1">NoticeBoard</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/project">Project</a>

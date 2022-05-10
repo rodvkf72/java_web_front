@@ -24,7 +24,9 @@
                 <hr style="width: 10%;">
                 <p class="post-subtitle" style="text-align: center">
                     이 블로그는 Go언어로 작성된 블로그를 Java로 재구성 한 것입니다.<br><br>
-                    Java, Spring Boot, mybatis, Mysql을 사용하였습니다.<br><br>
+                    백엔드와 프론트엔드 서버가 분리되어 있으며 기술 스택은 아래와 같습니다.<br><br>
+                    백엔드 : Java, Spring Boot, mybatis, Mysql<br>
+                    프론트엔드 : Svelte, Javascript, HTML, css<br><br>
                     디자인은 Bootstrap Template을 사용하였습니다.<br><br>
                     구성요소로는 게시판, 진행했던 프로젝트, 온라인 저지 문제 풀이가 있습니다.<br>
                 </p>
