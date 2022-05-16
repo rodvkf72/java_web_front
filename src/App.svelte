@@ -100,17 +100,17 @@
 <Route path="/Manager/*">
     <ManagerHead/>
     <ManagerNav/>
-    <Route path="/noticeboard/list">
-      <ManagerList/>
+    <Route path="/noticeboard/list/:page" let:meta>
+      <ManagerList page={meta.params.page}/>
     </Route>
     <Route path="/noticeboard/update/:no" let:meta>
       <ManagerDetail no={meta.params.no}/>
     </Route>
-    <Route path="/baekjoon/list">
-      <ManagerList/>
+    <Route path="/baekjoon/list/:page" let:meta>
+      <ManagerList page={meta.params.page}/>
     </Route>
-    <Route path="/baekjoon/update/*">
-      
+    <Route path="/baekjoon/update/:no" let:meta>
+      <ManagerDetail no={meta.params.no}/>
     </Route>
     <!--
     <Route path="/:division/list" let:meta>

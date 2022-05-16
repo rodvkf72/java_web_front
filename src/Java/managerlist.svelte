@@ -7,13 +7,14 @@
     let resultContent;
 
     export let division;
+    export let page;
     let test = [];
 
     onMount(async() => {
         var test = document.location.href.split("/");
         division = test[4];
         let list = [];
-        let result = fetch('http://localhost:8080/Manager/' + test[4] + '/list',
+        let result = fetch('http://localhost:8080/Manager/' + test[4] + '/list/' + page,
             {
             method: 'POST',
             headers: {
@@ -56,7 +57,7 @@
           {#each resultList as item}
             <div class="post-preview">
                 <a href="/Manager/{division}/update/{item.no}">
-                    <p class="post-title" style="text-align: center">
+                    <p class="post-title" style="text-align: center; font-size: 30px;">
                         {item.title}
                     </p>
                 </a>

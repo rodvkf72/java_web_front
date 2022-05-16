@@ -11,10 +11,10 @@
             <a class="nav-link" href="/main">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Manager/noticeboard/list">NoticeBoard</a>
+            <a class="nav-link" href="/Manager/noticeboard/list/1">NoticeBoard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Manager/baekjoon/list">Baekjoon</a>
+            <a class="nav-link" href="/Manager/baekjoon/list/1">Baekjoon</a>
           </li>
         </ul>
       </div>
