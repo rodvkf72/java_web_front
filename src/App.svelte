@@ -12,8 +12,8 @@
     import Footer from './Java/footer.svelte';
     import Main from './Java/main.svelte';
     import Coding from './Java/coding.svelte';
-    import Bjudge from './Java/bjudge.svelte';
-    import Bjudgepost from './Java/bjudgepost.svelte';
+    import Judge from './Java/judge.svelte';
+    import Judgepost from './Java/judgepost.svelte';
     import Project from './Java/project.svelte';
     import Noticeboard from './Java/noticeboard.svelte';
     import Noticeboardpost from './Java/noticeboardpost.svelte';
@@ -47,7 +47,10 @@
 </script>
 
 <style>
-  
+  p img {
+    width:100%;
+    height:100%;
+  }
 </style>
 
 <!--
@@ -78,6 +81,26 @@
   <Footer/>
 </Route>
 
+<Route path="/coding/*">
+  <Head/>
+  <Nav/>
+  <Route path="/:divi/*" let:meta>
+    <Route path="/:page" let:meta>
+      <Judge divi={meta.params.divi} page={meta.params.page}/>
+    </Route>
+    <Route path="/view/:no" let:meta>
+      <Judgepost no={meta.params.no}/>
+      <Utterances
+        repo="rodvkf72/Utterances"
+        theme="github-light"
+        issueTerm="url"
+      />
+      <hr>
+    </Route>
+  </Route>
+</Route>
+
+<!--
 <Route path="/coding/b_judge/*">
   <Head/>
   <Nav/>
@@ -95,7 +118,7 @@
   </Route>
   <Footer/>
 </Route>
-
+-->
 
 <Route path="/Manager/*">
     <ManagerHead/>

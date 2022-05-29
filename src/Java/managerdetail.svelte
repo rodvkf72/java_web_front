@@ -29,6 +29,7 @@
           var path = "/upload/"
           var imgNode = document.createElement("img");
           imgNode.src = path + uuid + "_" + fileName;
+          imgNode.style.cssText = "width: 100%; height: 100%;";
 
           var range = document.getSelection().getRangeAt(0);
           range.insertNode(imgNode);

@@ -69,6 +69,8 @@
          -->
         <!-- Pager -->
         <hr>
+        <br><a href="/coding/p_judge/1">Programmers Online Judge</a><br>&nbsp;
+        <hr>
       </div>
     </div>
   </div>

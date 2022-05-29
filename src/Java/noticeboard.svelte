@@ -5,6 +5,7 @@
     let resultList = [];
     let max;
     let cnt = 1;
+    let paging = [];
 
     onMount(async() => {
       let list = [];
@@ -25,6 +26,13 @@
       await result;
       resultList = list.list;
       max = list.max[0].page;
+      
+      let empty = [];
+      for (var i = 1; i <= Math.ceil(max / 10); i++) {
+        empty.push({no : String(i)});
+      }
+      
+      paging = empty; //왜인지 모르겠으나 empty 변수를 지정하지 않고 paging 변수에 데이터를 push 하는 경우 프론트에서 출력이 안됨..
     })
   
     /*
@@ -106,9 +114,14 @@
 
         <div class="clearfix">
           <div id="b_dv" style="text-align: center">
-            {#if cnt <= max}
-                <input type="button" value="{cnt}" onclick="location.href='/noticeboard/{cnt}'">&nbsp;
-            {/if}
+            {#each paging as item}
+              <input type="button" value="{item.no}" onclick="location.href='/noticeboard/{item.no}'">&nbsp;
+              <!--
+              {#if cnt <= max}
+                <input type="button" value="{item}" onclick="location.href='/noticeboard/{item}'">&nbsp;
+              {/if}
+              -->
+            {/each}
           </div>
         </div>
       </div>
