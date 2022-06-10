@@ -8,33 +8,6 @@ import { onMount } from "svelte";
     let prev;
     let next;
     let resultContent;
-  
-    /*
-    async function noticeList() {
-      let list = [];
-      let result = fetch('http://localhost:8080/noticeboard/view/' + page,
-        {
-          method: 'POST',
-          headers: {
-            "Content-Type" : "application/json",
-          }
-        }
-      ).then((res) => {
-        return res.json();
-      }).then((json) => {
-        list = json;
-        console.log(list);
-      });
-  
-      await result;
-      resultList = list.list;
-      resultContent = resultList[0].content;
-      prev = list.temp[0].prevtitle;
-      next = list.temp[0].nexttitle;
-    }
-  
-    noticeList();
-    */
 
     function reload() {
         location.reload();

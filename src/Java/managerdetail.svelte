@@ -92,7 +92,11 @@
         resultTitle = resultList[0].title;
         resultContent = resultList[0].content;
       }
-      document.getElementsByClassName("ql-editor")[0].innerHTML = resultContent;
+      //document.getElementsByClassName("ql-editor")[0].innerHTML = resultContent;
+      console.log(resultContent);
+      resultContent = resultContent.replace(/\<div/gi, '<p');
+      resultContent = resultContent.replace(/\<\/div\>/gi, '</p>');
+      document.querySelector(".ql-editor").innerHTML = resultContent;
       //document.getElementById("editor").innerHTML = resultContent;
     });
 
@@ -201,9 +205,7 @@
           <textarea id="contentArea" style="display:none" bind:value={content}></textarea>
         {/if}
         <div id="editor" class="editor" use:quill={options} on:text-change={e => content = e.detail}>
-            {#if no != 0}
-              {resultContent}           
-            {/if}
+            
         </div>
         <br>
         {#if no == 0}

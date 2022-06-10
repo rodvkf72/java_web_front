@@ -10,13 +10,14 @@
 <script>
   import { onMount } from "svelte";
   export let no;
+  export let divi;
 
   let resultList = [];
   let resultContent;
 
   onMount(async() => {
     let list = [];
-    let result = fetch('http://localhost:8080/b_judge/view/' + no,
+    let result = fetch('http://localhost:8080/' + divi + '/view/' + no,
       {
         method: 'POST',
         headers: {

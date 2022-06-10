@@ -89,7 +89,7 @@
       <Judge divi={meta.params.divi} page={meta.params.page}/>
     </Route>
     <Route path="/view/:no" let:meta>
-      <Judgepost no={meta.params.no}/>
+      <Judgepost divi={meta.params.divi} no={meta.params.no}/>
       <Utterances
         repo="rodvkf72/Utterances"
         theme="github-light"
@@ -98,6 +98,7 @@
       <hr>
     </Route>
   </Route>
+  <Footer/>
 </Route>
 
 <!--
