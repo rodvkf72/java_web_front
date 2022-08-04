@@ -20,12 +20,12 @@
         return res.json();
       }).then((json) => {
         list = json;
-        console.log(list);
       });
   
       await result;
       resultList = list.list;
-      max = list.max[0].page;
+      console.log(resultList);
+      max = list.max[0].no;
       
       let empty = [];
       for (var i = 1; i <= Math.ceil(max / 10); i++) {
@@ -67,7 +67,7 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
-            <h1>게 시 판</h1>
+            <h2>게 시 판</h2>
             <br>
             <span class="subheading">잡동사니 저장소</span>
           </div>

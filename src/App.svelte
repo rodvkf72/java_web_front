@@ -1,10 +1,7 @@
 <!-- Java -->
 <script>
-    import {onMount} from 'svelte';
     import {meta, Route} from 'tinro';
     import {Utterances} from 'utterances-svelte-component';
-
-    import axios from 'axios';
 
     import Index from './Java/index.svelte';
     import Head from './Java/head.svelte';
@@ -22,28 +19,7 @@
     import ManagerMain from './Java/managermain.svelte';
     import ManagerList from './Java/managerlist.svelte';
     import ManagerDetail from './Java/managerdetail.svelte';
-
-    //axios.get('http://localhost:8080/b_judge/view/1000').then((Response) => { console.log(Response.data); }).catch((Error) => { console.log(Error); })
-    
-    /*
-    onMount(async() => {
-      
-      const res = await fetch('http://localhost:8080/b_judge/1',
-        {
-          method: 'POST',
-          headers: {
-            "Content-Type" : "application/json",
-          }
-        }
-      )
-      .then((res) => {
-        return res.json();
-      })
-      .then((json) => {
-        list = json;
-      })
-    })
-    */
+    import MyInfo from './Java/myinfo.svelte';
 </script>
 
 <style>
@@ -52,10 +28,6 @@
     height:100%;
   }
 </style>
-
-<!--
-<svelte:window on:popstate={(e) => yourLocVariable = e.target.location.pathname} />
--->
 
 <Route path="/index">
   <Head/>
@@ -145,6 +117,37 @@
       <ManagerMain/>
     </Route>
     <Footer/>
+</Route>
+
+<Route path="/info">
+  <script>
+    function simple() {
+      if (document.getElementsByClassName("simpledivcol1")[0].style.display == "none") {
+        document.getElementsByClassName("simpledivcol1")[0].style.display="";
+        document.getElementsByClassName("simpledivcol2")[0].style.display="";
+        document.getElementsByClassName("simpledivcol3")[0].style.display="";
+        document.getElementsByClassName("detaildiv")[0].style.display="none";
+      } else {
+        document.getElementsByClassName("simpledivcol1")[0].style.display="none";
+        document.getElementsByClassName("simpledivcol2")[0].style.display="none";
+        document.getElementsByClassName("simpledivcol3")[0].style.display="none";
+      }
+    }
+    function detail() {
+      if (document.getElementsByClassName("detaildiv")[0].style.display == "none") {
+        document.getElementsByClassName("detaildiv")[0].style.display="";
+        document.getElementsByClassName("simpledivcol1")[0].style.display="none";
+        document.getElementsByClassName("simpledivcol2")[0].style.display="none";
+        document.getElementsByClassName("simpledivcol3")[0].style.display="none";
+      } else {
+        document.getElementsByClassName("detaildiv")[0].style.display="none";
+      }
+    }
+  </script>
+  <Head/>
+  <Nav/>
+  <MyInfo/>
+  <Footer/>
 </Route>
 
 <Route path="/project">

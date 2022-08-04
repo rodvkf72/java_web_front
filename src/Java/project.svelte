@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
-            <h1>프 로 젝 트</h1>
+            <h2>프 로 젝 트</h2>
             <br>
             <span class="subheading">이 때 까 지 한 프 로 젝 트</span>
           </div>
@@ -21,12 +21,31 @@
       <!-- /.col-lg-3 -->
 
       <div class="col-lg-12">
-
+        <h3 style="text-align:center">진행한 프로젝트</h3>
+        <hr>
 
 
         <div class="row">
+
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+              <a href="https://cashnamu.com"><img class="card-img-top" src="../../resources/image/pop_bg.png" alt=""></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="https://cashnamu.com">캐시나무</a>
+                </h4>
+                <h5>Java, MySQL, jsp</h5>
+                <p class="card-text">사용자가 구매한 물품의 일정 비율을 리워드 해 주는 사이트로 토이 프로젝트에서 확장된 케이스 입니다.</p>
+              </div>
+              <!-- 
+              <div class="card-footer">
+                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+              </div>
+                -->
+            </div>
+          </div>
         
-        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
               <a href="https://github.com/rodvkf72/java_web"><img class="card-img-top" src="../../resources/image/springboot.jpg" alt=""></a>
               <div class="card-body">
@@ -36,11 +55,6 @@
                 <h5>Java(Spring Boot), MySQL, mybatis</h5>
                 <p class="card-text">현재 보고 있는 이 페이지로 Go언어로 제작한 블로그를 Java, jsp 코드로 변경하고 Bootstrap Template를 사용하여 디자인 하였습니다.</p>
               </div>
-              <!-- 
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-               -->
             </div>
           </div>
           
@@ -54,11 +68,6 @@
                 <h5>Go(Echo), MySQL, Docker</h5>
                 <p class="card-text">Go언어를 공부하던 중 웹 개발이 가능한 것을 알고 '웹을 만들면서 공부하면 더 학습이 잘 되지 않을까?' 라는 생각으로 제작하게 되었습니다.</p>
               </div>
-              <!-- 
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-               -->
             </div>
           </div>
           
@@ -72,14 +81,37 @@
                 <h5>Java(Spring4), Oracle, mybatis, Apache Tomcat</h5>
                 <p class="card-text">카드를 등록하여 간단한 비밀번호 입력으로 서비스나 상품을 구매할 수 있게 하여 사용자에게 편리한 결제 방식을 제공하도록 하였습니다.</p>
               </div>
-              <!-- 
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-               -->
             </div>
           </div>
 
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+              <a href="https://github.com/rodvkf72/building_info_competition"><img class="card-img-top" src="../../resources/image/android.jpg" alt=""></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="https://github.com/rodvkf72/building_info_competition">건축정보 모바일 서비스 콘텐츠 개발 공모전</a>
+                </h4>
+                <h5>Java(Android Studio), php, MySQL</h5>
+                <p class="card-text">건축 대장 정보나 건축물의 상태 기입을 효율적으로 하기 위한 애플리케이션 입니다.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.row -->
+
+      </div>
+      <!-- /.col-lg-9 -->
+
+      <div>　</div>
+
+      <div class="col-lg-12">
+        <h3 style="text-align:center;">학부 수업 프로젝트</h3>
+        <hr>
+
+
+        <div class="row">
+          
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
               <a href="https://github.com/rodvkf72/Makers"><img class="card-img-top" src="../../resources/image/android.jpg" alt=""></a>
@@ -97,6 +129,7 @@
                -->
             </div>
           </div>
+
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
@@ -125,24 +158,6 @@
                 </h4>
                 <h5>Java(Android Studio), php, MySQL</h5>
                 <p class="card-text">OCR 기술로 번호판 인식을 통해 차량으로 결제를 지원하는 애플리케이션(결제 미구현) 입니다.</p>
-              </div>
-              <!-- 
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-               -->
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="https://github.com/rodvkf72/building_info_competition"><img class="card-img-top" src="../../resources/image/android.jpg" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="https://github.com/rodvkf72/building_info_competition">건축정보 모바일 서비스 콘텐츠 개발 공모전</a>
-                </h4>
-                <h5>Java(Android Studio), php, MySQL</h5>
-                <p class="card-text">건축 대장 정보나 건축물의 상태 기입을 효율적으로 하기 위한 애플리케이션 입니다.</p>
               </div>
               <!-- 
               <div class="card-footer">
@@ -282,7 +297,8 @@
         <!-- /.row -->
 
       </div>
-      <!-- /.col-lg-9 -->
+
+
 
     </div>
     <!-- /.row -->

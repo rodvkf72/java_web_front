@@ -4,9 +4,9 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                  <h1>Kim's Log</h1>
+                  <h2>Bottle Collector's Log</h2>
                   <br>
-                  <span class="subheading">풀 스택을 향해 나아가는 개발자</span>
+                  <span class="subheading">맥주병을 수집하는 개발자</span>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
                     디자인은 Bootstrap Template을 사용하였습니다.<br><br>
                     구성요소로는 게시판, 진행했던 프로젝트, 온라인 저지 문제 풀이가 있습니다.<br>
                 </p>
-                <p class="post-meta" style="text-align: center">Made By KHKI</p>
+                <p class="post-meta" style="text-align: center">Made By Bottle Collector</p>
             </div>
             <hr>
         </div>

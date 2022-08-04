@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
-            <h1>코 딩 문 제</h1>
+            <h2>코 딩 문 제</h2>
             <br>
             <span class="subheading">Online Judge 문 제 풀 이</span>
           </div>
@@ -19,7 +19,7 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto" style="text-align: center;">
       	<hr>
-      	<br><a href="/coding/b_judge/1">Baekjoon Online Judge</a><br>&nbsp;
+      	<br><a href="/coding/baekjoon/1">Baekjoon Online Judge</a><br>&nbsp;
       	
       	<!--
       	<hr>
@@ -69,7 +69,7 @@
          -->
         <!-- Pager -->
         <hr>
-        <br><a href="/coding/p_judge/1">Programmers Online Judge</a><br>&nbsp;
+        <br><a href="/coding/programmers/1">Programmers Online Judge</a><br>&nbsp;
         <hr>
       </div>
     </div>

@@ -16,10 +16,10 @@
         let list = [];
         let result = fetch('http://localhost:8080/Manager/' + test[4] + '/list/' + page,
             {
-            method: 'POST',
-            headers: {
-                "Content-Type" : "application/json",
-            }
+                method: 'POST',
+                headers: {
+                    "Content-Type" : "application/json",
+                }
             }
         ).then((res) => {
             return res.json();

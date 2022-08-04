@@ -3,7 +3,9 @@
   export let page;
   export let divi;
 
+  let max;
   let resultList = [];
+  let paging = [];
 
   onMount(async() => {
     let list = [];
@@ -22,6 +24,14 @@
 
     await result;
     resultList = list.list;
+    max = list.max[0].no;
+      
+      let empty = [];
+      for (var i = 1; i <= Math.ceil(max / 10); i++) {
+        empty.push({no : String(i)});
+      }
+      
+      paging = empty; //왜인지 모르겠으나 empty 변수를 지정하지 않고 paging 변수에 데이터를 push 하는 경우 프론트에서 출력이 안됨..
   })
 </script>
 
@@ -33,16 +43,15 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
-            <h1>
-              {#if divi == 'b_judge'}
+            <h2>
+              {#if divi == 'baekjoon'}
                 백 준
-              {:else if divi == 'p_judge'}
+              {:else if divi == 'programmers'}
                 프로그래머스
               {:else}
                 
               {/if}
-              백 준
-            </h1>
+            </h2>
             <br>
             <span class="subheading">문 제 풀 이</span>
           </div>
@@ -75,7 +84,18 @@
         
         <!-- Pager -->
         <hr>
-        
+        <div class="clearfix">
+          <div id="b_dv" style="text-align: center">
+            {#each paging as item}
+              <input type="button" value="{item.no}" onclick="location.href='/coding/{divi}/{item.no}'">&nbsp;
+              <!--
+              {#if cnt <= max}
+                <input type="button" value="{item}" onclick="location.href='/noticeboard/{item}'">&nbsp;
+              {/if}
+              -->
+            {/each}
+          </div>
+        </div>
       </div>
     </div>
   </div>

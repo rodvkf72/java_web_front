@@ -7,13 +7,17 @@
           async>
 </script>
           -->
+
 <script>
   import { onMount } from "svelte";
+
   export let no;
   export let divi;
 
   let resultList = [];
-  let resultContent;
+  let popularList = [];
+  let popularSize = 0;
+  let popularSizeMinus = 0;
 
   onMount(async() => {
     let list = [];
@@ -31,34 +35,18 @@
     });
 
     await result;
-    resultList = list.list;
-    resultContent = resultList[0].content;
+    resultList = list.list[0];
+    popularList = list.popularList;
+    popularSize = popularList.length;
+    popularSizeMinus = popularSize - 2;
   })
-
-  /*
-  async function viewList() {
-    let list = [];
-    let result = fetch('http://localhost:8080/b_judge/view/' + no,
-      {
-        method: 'POST',
-        headers: {
-          "Content-Type" : "application/json",
-        }
-      }
-    ).then((res) => {
-      return res.json();
-    }).then((json) => {
-      list = json;
-    });
-
-    await result;
-    resultList = list.list;
-    resultContent = resultList[0].content;
-  }
-
-  viewList();
-  */
 </script>
+
+<style>
+  :global(.item:nth-child(n)) {
+	  background-color: rgb(152, 255, 121);
+  }
+</style>
 
 <header class="masthead" style="background-image: url('/Java/image/post-bg.jpg')">
     <div class="overlay"></div>
@@ -66,12 +54,10 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="post-heading">
-
-            {#each resultList as item}
-              <h1>{ item.title }</h1>
-              <br>
-              <span class="meta">Posted by { item.writer } on { item.date }</span>
-            {/each}
+            
+            <h2>{ resultList.title }</h2>
+            <br>
+            <span class="meta">Posted by { resultList.writer } on { resultList.date }</span>
               
             <!--<h1>${ item.title }</h1>-->
             <br>
@@ -88,10 +74,64 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-          {@html resultContent}
+          {@html resultList.content}
         </div>
       </div>
       <br>
       <hr>
     </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="slider-container">
+            <div class="slider">
+              <div class="slides">
+                {#each popularList as popular, index}
+                  {#if index < 1}
+                    <div id="slides__{index+1}" class="slide">
+                      <div onclick="location.href='http://localhost:4000/coding/{divi}/view/{popular.no}'">
+                        <br>
+                        <div>{divi}</div>
+                        <hr style="width:20%;">
+                        <div>{popular.no}. {popular.title}</div>
+                        <hr style="width:20%;">
+                        <div>click : {popular.click}</div>
+                      </div>
+                      <a class="slide__prev" href="#slides__{popularSize}" title="Prev"></a>
+                      <a class="slide__next" href="#slides__{index+2}" title="Next"></a>  
+                    </div>
+                  {:else if index > popularSizeMinus}
+                    <div id="slides__{index+1}" class="slide">
+                      <div onclick="location.href='http://localhost:4000/coding/{divi}/view/{popular.no}'">
+                        <br>
+                        <div>{divi}</div>
+                        <hr style="width:20%;">
+                        <div>{popular.no}. {popular.title}</div>
+                        <hr style="width:20%;">
+                        <div>click : {popular.click}</div>
+                      </div>
+                      <a class="slide__prev" href="#slides__{index}" title="Prev"></a>
+                      <a class="slide__next" href="#slides__1" title="Next"></a>  
+                    </div>
+                  {:else}
+                    <div id="slides__{index+1}" class="slide">
+                      <div  onclick="location.href='http://localhost:4000/coding/{divi}/view/{popular.no}'">
+                        <br>
+                        <div>{divi}</div>
+                        <hr style="width:20%;">
+                        <div>{popular.no}. {popular.title}</div>
+                        <hr style="width:20%;">
+                        <div>click : {popular.click}</div>
+                      </div>
+                      <a class="slide__prev" href="#slides__{index}" title="Prev"></a>
+                      <a class="slide__next" href="#slides__{index+2}" title="Next"></a>  
+                    </div>
+                  {/if}
+                {/each}
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <hr>
   </article>

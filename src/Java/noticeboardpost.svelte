@@ -5,8 +5,10 @@ import { onMount } from "svelte";
     export let page;
   
     let resultList = [];
-    let prev;
-    let next;
+    let prevNo;
+    let nextNo;
+    let prevTitle;
+    let nextTitle;
     let resultContent;
 
     function reload() {
@@ -25,28 +27,30 @@ import { onMount } from "svelte";
         return res.json();
       }).then((json) => {
         list = json;
-        console.log(list);
       });
   
       await result;
       resultList = list.list;
-      resultContent = resultList[0].content;
-      prev = list.temp[0].prevtitle;
-      next = list.temp[0].nexttitle;
+      console.log(resultList);
+      resultContent = resultList.content;
+
+      prevNo = resultList.prevNo;
+      nextNo = resultList.nextNo;
+      prevTitle = resultList.prevTitle;
+      nextTitle = resultList.nextTitle;
     })
 </script>
 
-{#each resultList as item}
 <header class="masthead" style="background-image: url('img/post-bg.jpg')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="post-heading">
-            <h1>{ item.title }</h1>
+            <h2>{ resultList.title }</h2>
             <br>
             <!-- <h2 class="subheading">Problems look mighty small from 150 miles up</h2> -->
-            <span class="meta">Posted by { item.writer } on { item.date }</span>
+            <span class="meta">Posted by { resultList.writer } on { resultList.date }</span>
           </div>
         </div>
       </div>
@@ -67,19 +71,19 @@ import { onMount } from "svelte";
   </article>
   <div style="float: left; width: 30%; margin-left: 20%;">
     <span style="float: left">
-      {#if next == -1}
+      {#if nextNo == 0}
             다음 글이 없습니다.
       {:else}
-            <a href="http://localhost:4000/noticeboard/view/{next}">{item.nexttitle}</a>    
+            <a href="http://localhost:4000/noticeboard/view/{nextNo}">{nextTitle}</a>    
       {/if}
     </span>
   </div>
   <div style="display: inline-block; width: 30%; margin-right: 20%;">
       <span style="float: right">
-          {#if prev == -2}
+          {#if prevNo == 0}
             이전 글이 없습니다.
           {:else}
-            <a style="float: right;" href="http://localhost:4000/noticeboard/view/{prev}">{item.prevtitle}</a>
+            <a style="float: right;" href="http://localhost:4000/noticeboard/view/{prevNo}">{prevTitle}</a>
           {/if}
       </span>
   </div>
@@ -87,4 +91,3 @@ import { onMount } from "svelte";
 <br>
 <hr>
 <br>
-{/each}
