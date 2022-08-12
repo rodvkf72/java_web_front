@@ -18,6 +18,7 @@
   let popularList = [];
   let popularSize = 0;
   let popularSizeMinus = 0;
+  let onclick = "";
 
   onMount(async() => {
     let list = [];
@@ -89,9 +90,9 @@
                 {#each popularList as popular, index}
                   {#if index < 1}
                     <div id="slides__{index+1}" class="slide">
-                      <div onclick="location.href='http://localhost:4000/coding/{divi}/view/{popular.no}'">
+                      <div onclick="location.href='http://localhost:4000/board/{popular.division}/view/{popular.no}'">
                         <br>
-                        <div>{divi}</div>
+                        <div>{popular.division}</div>
                         <hr style="width:20%;">
                         <div>{popular.no}. {popular.title}</div>
                         <hr style="width:20%;">
@@ -102,9 +103,9 @@
                     </div>
                   {:else if index > popularSizeMinus}
                     <div id="slides__{index+1}" class="slide">
-                      <div onclick="location.href='http://localhost:4000/coding/{divi}/view/{popular.no}'">
+                      <div onclick="location.href='http://localhost:4000/board/{popular.division}/view/{popular.no}'">
                         <br>
-                        <div>{divi}</div>
+                        <div>{popular.division}</div>
                         <hr style="width:20%;">
                         <div>{popular.no}. {popular.title}</div>
                         <hr style="width:20%;">
@@ -115,11 +116,11 @@
                     </div>
                   {:else}
                     <div id="slides__{index+1}" class="slide">
-                      <div  onclick="location.href='http://localhost:4000/coding/{divi}/view/{popular.no}'">
+                      <div  onclick="location.href='http://localhost:4000/board/{popular.division}/view/{popular.no}'">
                         <br>
-                        <div>{divi}</div>
+                        <div>{popular.division}</div>
                         <hr style="width:20%;">
-                        <div>{popular.no}. {popular.title}</div>
+                        <div>{popular.title}</div>
                         <hr style="width:20%;">
                         <div>click : {popular.click}</div>
                       </div>

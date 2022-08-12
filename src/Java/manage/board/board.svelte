@@ -1,10 +1,13 @@
 <script>
     import { onMount, tick } from "svelte";
+    import { writable } from "svelte/store";
+
+    const storedToken = localStorage.getItem("tokenStorage");
 
     let resultList = [];
     let prev;
     let next;
-    let resultContent;
+    let resultContent = [];
 
     export let division;
     export let page;
@@ -12,13 +15,15 @@
 
     onMount(async() => {
         var test = document.location.href.split("/");
+        console.log(test);
         division = test[4];
         let list = [];
-        let result = fetch('http://localhost:8080/Manager/' + test[4] + '/list/' + page,
+        let result = fetch('http://localhost:8080/Manage/' + test[4] + '/' + page,
             {
                 method: 'POST',
                 headers: {
                     "Content-Type" : "application/json",
+                    "Authorization" : storedToken,
                 }
             }
         ).then((res) => {
@@ -26,13 +31,16 @@
         }).then((json) => {
             list = json;
             console.log(list);
+            if (list.result == 'empty') {
+                window.location.href="http://localhost:4000/Manage/login";    
+            }
         });
     
         await result;
         resultList = list.list;
+        console.log(resultList);
         resultContent = resultList[0].content;
     })
-
 </script>
 
 <header class="masthead" style="background-image: url('/Java/image/home-bg.jpg')">
@@ -56,7 +64,7 @@
       <div class="col-lg-8 col-md-10 mx-auto">
           {#each resultList as item}
             <div class="post-preview">
-                <a href="/Manager/{division}/update/{item.no}">
+                <a href="/Manage/{division}/update/{item.no}">
                     <p class="post-title" style="text-align: center; font-size: 30px;">
                         {item.title}
                     </p>

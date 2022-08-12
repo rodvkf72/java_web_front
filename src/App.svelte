@@ -2,24 +2,26 @@
 <script>
     import {meta, Route} from 'tinro';
     import {Utterances} from 'utterances-svelte-component';
+    //import {Session, login} from 'svelte-session-manager';
 
     import Index from './Java/index.svelte';
-    import Head from './Java/head.svelte';
-    import Nav from './Java/nav.svelte';
-    import Footer from './Java/footer.svelte';
-    import Main from './Java/main.svelte';
-    import Coding from './Java/coding.svelte';
-    import Judge from './Java/judge.svelte';
-    import Judgepost from './Java/judgepost.svelte';
-    import Project from './Java/project.svelte';
-    import Noticeboard from './Java/noticeboard.svelte';
-    import Noticeboardpost from './Java/noticeboardpost.svelte';
-    import ManagerHead from './Java/managerhead.svelte';
-    import ManagerNav from './Java/managernav.svelte';
-    import ManagerMain from './Java/managermain.svelte';
-    import ManagerList from './Java/managerlist.svelte';
-    import ManagerDetail from './Java/managerdetail.svelte';
-    import MyInfo from './Java/myinfo.svelte';
+
+    import Main from './Java/user/main.svelte';
+    import Head from './Java/user/subpage/head.svelte';
+    import Nav from './Java/user/subpage/nav.svelte';
+    import Footer from './Java/user/subpage/footer.svelte';
+    import Coding from './Java/user/board/boardCoding.svelte';
+    import Board from './Java/user/board/board.svelte';
+    import BoardDetail from './Java/user/board/boardDetail.svelte';
+    import Project from './Java/user/project/project.svelte';
+    import MyInfo from './Java/user/info/myinfo.svelte';
+
+    import ManageHead from './Java/manage/subpage/head.svelte';
+    import ManageNav from './Java/manage/subpage/nav.svelte';
+    import ManageMain from './Java/manage/main.svelte';
+    import ManageList from './Java/manage/board/board.svelte';
+    import ManageDetail from './Java/manage/board/boardDetail.svelte';
+    import ManageLogin from './Java/manage/login/login.svelte';
 </script>
 
 <style>
@@ -46,75 +48,46 @@
   <Footer/>
 </Route>
 
-<Route path="/coding">
-  <Head/>
-  <Nav/>
-  <Coding/>
-  <Footer/>
-</Route>
-
-<Route path="/coding/*">
-  <Head/>
-  <Nav/>
-  <Route path="/:divi/*" let:meta>
-    <Route path="/:page" let:meta>
-      <Judge divi={meta.params.divi} page={meta.params.page}/>
-    </Route>
-    <Route path="/view/:no" let:meta>
-      <Judgepost divi={meta.params.divi} no={meta.params.no}/>
-      <Utterances
-        repo="rodvkf72/Utterances"
-        theme="github-light"
-        issueTerm="url"
-      />
-      <hr>
-    </Route>
-  </Route>
-  <Footer/>
-</Route>
-
-<!--
-<Route path="/coding/b_judge/*">
-  <Head/>
-  <Nav/>
-  <Route path="/:page" let:meta>
-    <Bjudge page={meta.params.page}/>
-  </Route>
-  <Route path="/view/:no" let:meta>
-    <Bjudgepost no={meta.params.no}/>
-    <Utterances
-      repo="rodvkf72/Utterances"
-      theme="github-light"
-      issueTerm="url"
-    />
-    <hr>
-  </Route>
-  <Footer/>
-</Route>
--->
-
-<Route path="/Manager/*">
-    <ManagerHead/>
-    <ManagerNav/>
-    <Route path="/noticeboard/list/:page" let:meta>
-      <ManagerList page={meta.params.page}/>
+<Route path="/Manage/*">
+  <!--
+  <script>
+    let check = fetch('http://localhost:8080/Manage/sessionCheck',
+      {
+        method: 'POST',
+        headers: {
+          "Content-Type" : "application/json",
+        }
+      }
+    ).then((res) => {
+      console.log(res);
+    });
+  </script>
+  -->
+    <ManageHead/>
+    <ManageNav/>
+    <Route path="/noticeboard/:page" let:meta>
+      <ManageList page={meta.params.page}/>
     </Route>
     <Route path="/noticeboard/update/:no" let:meta>
-      <ManagerDetail no={meta.params.no}/>
+      <ManageDetail no={meta.params.no}/>
     </Route>
-    <Route path="/baekjoon/list/:page" let:meta>
-      <ManagerList page={meta.params.page}/>
+    <Route path="/baekjoon/:page" let:meta>
+      <ManageList page={meta.params.page}/>
     </Route>
     <Route path="/baekjoon/update/:no" let:meta>
-      <ManagerDetail no={meta.params.no}/>
+      <ManageDetail no={meta.params.no}/>
     </Route>
-    <!--
-    <Route path="/:division/list" let:meta>
-      <ManagerList division={meta.params.division}/>
+    <Route path="/programmers/:page" let:meta>
+      <ManageList no={meta.params.page}/>
     </Route>
-    -->
+    <Route path="/programmers/update/:no" let:meta>
+      <ManageDetail no={meta.params.no}/>
+    </Route>
     <Route path="/main">
-      <ManagerMain/>
+      <ManageMain/>
+    </Route>
+    <Route path="/login">
+      <ManageLogin/>
     </Route>
     <Footer/>
 </Route>
@@ -157,32 +130,29 @@
   <Footer/>
 </Route>
 
-<Route path="/noticeboard/*">
-    <Head/>
-    <Nav/>
-    <Route path="/:page" let:meta>
-        <Noticeboard page={meta.params.page}/>
-    </Route>
-    <Route path="/view/:page" let:meta>
-        <Noticeboardpost page={meta.params.page}/>
-        <Utterances
-          repo="rodvkf72/Utterances"
-          theme="github-light"
-          issueTerm="url"
-        />
-    </Route>
-    <Footer/>
-</Route>
-
-<!--
-<Route path="/">
+<Route path="/board">
   <Head/>
   <Nav/>
-  <Main/>
+  <Coding/>
   <Footer/>
 </Route>
--->
 
-<Route path="/test">
-
+<Route path="/board/*">
+  <Head/>
+  <Nav/>
+  <Route path="/:divi/*" let:meta>
+    <Route path="/:page" let:meta>
+      <Board divi={meta.params.divi} page={meta.params.page}/>
+    </Route>
+    <Route path="/view/:no" let:meta>
+      <BoardDetail divi={meta.params.divi} no={meta.params.no}/>
+      <Utterances
+        repo="rodvkf72/Utterances"
+        theme="github-light"
+        issueTerm="url"
+      />
+      <hr>
+    </Route>
+  </Route>
+  <Footer/>
 </Route>

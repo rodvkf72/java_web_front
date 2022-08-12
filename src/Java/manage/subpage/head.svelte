@@ -24,4 +24,4 @@
   <script src="/Java/vendor/comming/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-  </svelte:head>
+</svelte:head>

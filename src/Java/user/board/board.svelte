@@ -8,6 +8,8 @@
   let paging = [];
 
   onMount(async() => {
+    resultList = [];
+    paging = [];
     let list = [];
     let result = fetch('http://localhost:8080/' + divi + '/' + page,
       {
@@ -48,12 +50,18 @@
                 백 준
               {:else if divi == 'programmers'}
                 프로그래머스
+              {:else if divi == 'noticeboard'}
+                게 시 판
               {:else}
                 
               {/if}
             </h2>
             <br>
-            <span class="subheading">문 제 풀 이</span>
+            {#if divi == 'noticeboard'}
+              <span class="subheading">잡동사니 저장소</span>
+            {:else}
+              <span class="subheading">문 제 풀 이</span>
+            {/if}
           </div>
         </div>
       </div>
@@ -65,20 +73,38 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <table width="100%;" id="tbl">
-          <tr style="background-color: rgb(230, 230, 230); text-align: center;">
-            <th>
-              <b>번 호</b>
-            </th>
-            <th>
-              <b>문 제</b>
-            </th>
-          </tr>
-          {#each resultList as item}
-            <tbody style="text-align: center;">
-              <td><hr>&nbsp;<br>{item.no}<br>&nbsp;</td>
-              <td><hr>&nbsp;<br><a href="/coding/{divi}/view/{item.no}">{item.title}</a><br>&nbsp;</td>
-            </tbody>
-          {/each}
+          {#if divi == 'noticeboard'}
+            {#each resultList as item}
+              <div class="post-preview">
+                  <a href="/noticeboard/view/{item.no}">
+                      <p class="post-title" style="text-align: center">
+                          {item.title}
+                      </p>
+                  </a>
+                  <p class="post-meta" style="text-align: right">Posted by 
+                      <a href="#">{item.writer}</a>
+                      on {item.date}
+                  </p>
+              </div>
+              <hr>
+            {/each}
+          {:else}
+            <tr style="background-color: rgb(230, 230, 230); text-align: center;">
+              <th>
+                <b>번 호</b>
+              </th>
+              <th>
+                <b>문 제</b>
+              </th>
+            </tr>
+            {#each resultList as item}
+              <tbody style="text-align: center;">
+                <td><hr>&nbsp;<br>{item.no}<br>&nbsp;</td>
+                <td><hr>&nbsp;<br><a href="/board/{divi}/view/{item.no}">{item.title}</a><br>&nbsp;</td>
+              </tbody>
+            {/each}
+          {/if}
+          
         </table>
         
         
@@ -87,7 +113,7 @@
         <div class="clearfix">
           <div id="b_dv" style="text-align: center">
             {#each paging as item}
-              <input type="button" value="{item.no}" onclick="location.href='/coding/{divi}/{item.no}'">&nbsp;
+              <input type="button" value="{item.no}" onclick="location.href='/board/{divi}/{item.no}'">&nbsp;
               <!--
               {#if cnt <= max}
                 <input type="button" value="{item}" onclick="location.href='/noticeboard/{item}'">&nbsp;

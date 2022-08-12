@@ -133,7 +133,7 @@
         }
       }
 
-      let result = fetch('http://localhost:8080/Manager/'+ division + '/action/' + no,
+      let result = fetch('http://localhost:8080/Manage/'+ division + '/action/' + no,
         {
           method: 'POST',
           headers: {
@@ -148,7 +148,7 @@
 
         if (list.result == "success") {
           alert("데이터 업데이트 완료.");
-          window.location.href='/Manager/' + division + '/list/1';
+          window.location.href='/Manage/' + division + '/list/1';
         } else {
           alert("데이터 업데이트 오류. 네트워크 상태 확인 및 관리자 문의");
         }

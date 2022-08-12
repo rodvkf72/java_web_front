@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" sytle="background-color:black">
     <div class="container">
-      <a class="navbar-brand" href="/Manager/main">Kim's Log - Manager</a>
+      <a class="navbar-brand" href="/Manage/main">Kim's Log - Manager</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
@@ -11,10 +11,10 @@
             <a class="nav-link" href="/main">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Manager/noticeboard/list/1">NoticeBoard</a>
+            <a class="nav-link" href="/Manage/noticeboard/1">NoticeBoard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/Manager/baekjoon/list/1">Baekjoon</a>
+            <a class="nav-link" href="/Manage/baekjoon/1">Baekjoon</a>
           </li>
         </ul>
       </div>
