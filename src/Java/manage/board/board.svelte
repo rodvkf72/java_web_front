@@ -1,12 +1,10 @@
 <script>
-    import { onMount, tick } from "svelte";
+    import { beforeUpdate, onMount } from "svelte";
     import { writable } from "svelte/store";
 
     const storedToken = localStorage.getItem("tokenStorage");
 
     let resultList = [];
-    let prev;
-    let next;
     let resultContent = [];
 
     export let division;
@@ -15,10 +13,8 @@
 
     onMount(async() => {
         var test = document.location.href.split("/");
-        console.log(test);
-        division = test[4];
         let list = [];
-        let result = fetch('http://localhost:8080/Manage/' + test[4] + '/' + page,
+        let result = fetch('http://localhost:8080/Manage/' + division + '/' + page,
             {
                 method: 'POST',
                 headers: {
@@ -33,12 +29,14 @@
             console.log(list);
             if (list.result == 'empty') {
                 window.location.href="http://localhost:4000/Manage/login";    
+            } else if (list.result == 'block') {
+                window.location.href="http://localhost:4000/main";
             }
         });
     
         await result;
+        console.log(result);
         resultList = list.list;
-        console.log(resultList);
         resultContent = resultList[0].content;
     })
 </script>
@@ -76,23 +74,7 @@
             </div>
             <hr>
           {/each}
-
-        <!--
-        <c:forEach items="${ list }" var="item">
-	       	<div class="post-preview">
-	          <a href="/noticeboard/view/${ item.no }">
-	            <p class="post-title" style="text-align: center">
-	              ${ item.title }
-	            </p>
-	          </a>
-	          <p class="post-meta" style="text-align: right">Posted by
-	            <a href="#">${ item.writer }</a>
-	            on ${ item.date }</p>
-	        </div>
-        	<hr>
-		</c:forEach>
-        -->
-        <!-- Pager -->
       </div>
     </div>
+    <a href="http://localhost:4000/Manage/insert">등록</a>
   </div>

@@ -27,12 +27,14 @@
             list = json;
         })
         await login;
-        tokenStorage.subscribe(value => {
-            localStorage.setItem("tokenStorage", value = list.result);
-        })
-        console.log(list.result);
-        tokenStorage.set(list.result);
-        console.log(tokenStorage);
+        if (list.result == 'empty') {
+            alert("아이디 또는 비밀번호를 확인하세요.");
+        } else {
+            tokenStorage.subscribe(value => {
+                localStorage.setItem("tokenStorage", value = list.result);
+            })
+            window.location.href="http://localhost:4000/Manage/main";
+        }
     }
 </script>
 

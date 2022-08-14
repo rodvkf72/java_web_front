@@ -1,8 +1,8 @@
 <!-- Java -->
 <script>
+    import { beforeUpdate, onMount, tick } from "svelte";
     import {meta, Route} from 'tinro';
     import {Utterances} from 'utterances-svelte-component';
-    //import {Session, login} from 'svelte-session-manager';
 
     import Index from './Java/index.svelte';
 
@@ -49,25 +49,56 @@
 </Route>
 
 <Route path="/Manage/*">
-  <!--
-  <script>
-    let check = fetch('http://localhost:8080/Manage/sessionCheck',
-      {
-        method: 'POST',
-        headers: {
-          "Content-Type" : "application/json",
-        }
-      }
-    ).then((res) => {
-      console.log(res);
-    });
-  </script>
-  -->
     <ManageHead/>
     <ManageNav/>
-    <Route path="/noticeboard/:page" let:meta>
+
+    <Route path="/:division/*" let:meta>
+      <Route path="/s/:page" let:meta>
+        <ManageList division={meta.params.division} page={meta.params.page}/>  
+      </Route>
+      <Route path="/:no" let:meta>
+        <ManageDetail division={meta.params.division} no={meta.params.no}/>  
+      </Route>
+    </Route>
+
+    <Route path="/boards">
+      <ManageList/>
+    </Route>
+    <Route path="/board/:no" let:meta>
+      <ManageDetail no={meta.params.no}/>
+    </Route>
+
+    <!--
+    <Route path="/noticeboards/:page" let:meta>
       <ManageList page={meta.params.page}/>
     </Route>
+    <Route path="/programmerss/:page" let:meta>
+      <ManageList page={meta.params.page}/>
+    </Route>
+    <Route path="/baekjoons/:page" let:meta>
+      <ManageList page={meta.params.page}/>
+    </Route>
+
+    <Route path="/noticeboard/:page" let:meta>
+      <ManageDetail page={meta.params.page}/>
+    </Route>
+    <Route path="/baekjoon/:page" let:meta>
+      <ManageDetail page={meta.params.page}/>
+    </Route>
+    <Route path="/programmers/:page" let:meta>
+      <ManageDetail page={meta.params.page}/>
+    </Route>
+    -->
+
+    <!--
+    <Route path="/:division/:page" let:meta>
+      <ManageList page={meta.params.page}, division={meta.params.division}/>
+    </Route>
+    <Route path="/board/**">
+      <ManageDetail/>
+    </Route>
+    -->
+    <!--
     <Route path="/noticeboard/update/:no" let:meta>
       <ManageDetail no={meta.params.no}/>
     </Route>
@@ -83,6 +114,7 @@
     <Route path="/programmers/update/:no" let:meta>
       <ManageDetail no={meta.params.no}/>
     </Route>
+    -->
     <Route path="/main">
       <ManageMain/>
     </Route>

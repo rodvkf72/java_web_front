@@ -2,6 +2,7 @@
     import { quill } from "svelte-quill";
     import { beforeUpdate, onMount, tick } from "svelte";
 
+    const storedToken = localStorage.getItem("tokenStorage");
     
     var imageHandler1 = () => {
       var input = document.createElement('input');
@@ -16,8 +17,11 @@
         var formData = new FormData();
         formData.append('img', file);
 
-        let result = fetch('http://localhost:8080/Manager/fileUpload', {
+        let result = fetch('http://localhost:8080/Manage/fileUpload', {
           method: 'POST',
+          headers: {
+              "Authorization" : storedToken,
+            },
           body: formData,
           }
         ).then((res) => {
@@ -66,13 +70,14 @@
 
     onMount(async() => {
       var test = document.location.href.split("/");
-      division = test[4];
       let list = [];
-      let result = fetch('http://localhost:8080/Manager/'+ division + '/update/' + no,
+      console.log(no);
+      let result = fetch('http://localhost:8080/Manage/'+ division + '/update/' + no,
         {
           method: 'POST',
           headers: {
             "Content-Type" : "application/json",
+            "Authorization" : storedToken,
           }
         }
       ).then((res) => {
@@ -93,7 +98,6 @@
         resultContent = resultList[0].content;
       }
       //document.getElementsByClassName("ql-editor")[0].innerHTML = resultContent;
-      console.log(resultContent);
       resultContent = resultContent.replace(/\<div/gi, '<p');
       resultContent = resultContent.replace(/\<\/div\>/gi, '</p>');
       document.querySelector(".ql-editor").innerHTML = resultContent;
