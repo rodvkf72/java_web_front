@@ -67,42 +67,47 @@
     let resultTitle;
     let resultContent;
     let content;
+    let resultDivision = 'noticeboard';
 
-    onMount(async() => {
-      var test = document.location.href.split("/");
-      let list = [];
-      console.log(no);
-      let result = fetch('http://localhost:8080/Manage/'+ division + '/update/' + no,
-        {
-          method: 'POST',
-          headers: {
-            "Content-Type" : "application/json",
-            "Authorization" : storedToken,
+    if (no == 'insert') {
+      console.log("tt");
+    } else {
+      onMount(async() => {
+        let list = [];
+        let result = fetch('http://localhost:8080/Manage/' + division + '/update/' + no,
+          {
+            method: 'POST',
+            headers: {
+              "Content-Type" : "application/json",
+              "Authorization" : storedToken,
+            }
           }
+        ).then((res) => {
+          return res.json();
+        }).then((json) => {
+          list = json;
+        });
+
+        await result;
+        resultList = list.list;
+
+        if (resultList.length <= 0) {
+          resultNo = 0;
+          resultTitle = "";
+          resultContent = "";
+          resultDivision = "noticeboard";
+        } else {
+          resultNo = resultList[0].no;
+          resultTitle = resultList[0].title;
+          resultContent = resultList[0].content;
+          resultDivision = resultList[0].division;
         }
-      ).then((res) => {
-        return res.json();
-      }).then((json) => {
-        list = json;
-      });
-  
-      await result;
-      resultList = list.list;
-      if (resultList.length <= 0) {
-        resultNo = 0;
-        resultTitle = "";
-        resultContent = "";
-      } else {
-        resultNo = resultList[0].no;
-        resultTitle = resultList[0].title;
-        resultContent = resultList[0].content;
-      }
-      //document.getElementsByClassName("ql-editor")[0].innerHTML = resultContent;
-      resultContent = resultContent.replace(/\<div/gi, '<p');
-      resultContent = resultContent.replace(/\<\/div\>/gi, '</p>');
-      document.querySelector(".ql-editor").innerHTML = resultContent;
-      //document.getElementById("editor").innerHTML = resultContent;
-    });
+
+        resultContent = resultContent.replace(/\<div/gi, '<p');
+        resultContent = resultContent.replace(/\<\/div\>/gi, '</p>');
+        document.querySelector(".ql-editor").innerHTML = resultContent;
+      })
+    }
 
     let writer = "김광호";
 
@@ -121,53 +126,95 @@
         }
       }
 
-      if (resultNo == "0") {  //글을 새로 쓰는 경우
+      if (no == 'insert') {  //글을 새로 쓰는 경우
         obj = {
-          "no" : "0",
+          "no" : document.getElementById("no").value,
           "title" : document.getElementById("title").value,
           "content" : document.getElementById("editor").children[0].innerHTML,
-          "writer" : writer
+          "writer" : writer,
+          "division" : document.getElementById("division").value
         }
+
+        let result = fetch('http://localhost:8080/Manage/' + division + '/insert',
+          {
+            method: 'PUT',
+            headers: {
+              "Content-Type" : "application/json",
+              "Authorization" : storedToken,
+            },
+            body: JSON.stringify(obj)
+          }
+        ).then((res) => {
+          console.log(res);
+          return res.json();
+        }).then((json) => {
+          if (json == "1") {
+            alert("데이터 업데이트 완료.");
+            window.location.href='/Manage/' + document.getElementById("division").value + '/s/1';
+          } else {
+            alert("데이터 업데이트 오류. 네트워크 상태 확인 및 관리자 문의");
+          }
+        });
       } else {  //글 업데이트의 경우
         obj = {
-          "no" : resultNo,
-          "title" : resultTitle,
+          "pk" : no,
+          "no" : document.getElementById("no").value,
+          "title" : document.getElementById("title").value,
           "content" : document.getElementById("editor").children[0].innerHTML,
-          "writer" : writer  
+          "writer" : writer,
+          "division" : document.getElementById("division").value
         }
-      }
 
-      let result = fetch('http://localhost:8080/Manage/'+ division + '/action/' + no,
+        //let result = fetch('http://localhost:8080/Manage/'+ division + '/action/' + no,
+        let result = fetch('http://localhost:8080/Manage/' + division + '/update',
         {
-          method: 'POST',
+          //method: 'POST',
+          method: 'PATCH',
           headers: {
             "Content-Type" : "application/json",
+            "Authorization" : storedToken,
           },
           body: JSON.stringify(obj)
         }
       ).then((res) => {
+        console.log(res);
         return res.json();
       }).then((json) => {
-        list = json;
-
-        if (list.result == "success") {
+        if (json == "1") {
           alert("데이터 업데이트 완료.");
-          window.location.href='/Manage/' + division + '/list/1';
+          window.location.href='/Manage/' + division + '/s/1';
         } else {
           alert("데이터 업데이트 오류. 네트워크 상태 확인 및 관리자 문의");
         }
       });
+      }
   }
 
-  function change() {
-    no = -no;
+  const deleteSubmit = () => {
+    let result = fetch('http://localhost:8080/Manage/' + division + '/delete/' + no,
+      {
+        method: 'DELETE',
+        headers: {
+          "Content-Type" : "application/json",
+          "Authorization" : storedToken,
+        },
+      }
+    ).then((res) => {
+      return res.json();
+    }).then((json) => {
+      if (json == "1") {
+        alert("데이터 삭제 완료.");
+        window.location.href='/Manage/' + division + '/s/1';
+      } else {
+        alert("데이터 삭제 오류. 네트워크 상태 확인 및 관리자 문의");
+      }
+    })
   }
 </script>
 
 <style>
     .area {
         width: 80%;
-        height: 800px;
         margin-left: 10%;
     }
     #editor {
@@ -194,16 +241,24 @@
 </header>
 
 <div class="area">
-    <form id="form" enctype="multipart/form-data" method = "post" action = "http://localhost:18080/Manager/{division}/action/{no}" on:submit|preventDefault={handleSubmit}>
-        <input type="hidden" id="no" bind:value={resultNo}>
+    <form id="form" enctype="multipart/form-data" method="post" action = "http://localhost:18080/Manager/{division}/action/{no}" on:submit|preventDefault={handleSubmit}>
+        No : <input type="text" id="no" bind:value={resultNo}>
+        <br><br>
         Title : 
-        {#if no == 0}
+        {#if no == 'insert'}
           <input type="text" id="title" bind:value={resultTitle}>
         {:else}
           <input type="text" id="title" bind:value={resultTitle}>
         {/if}
+        <br><br>
+        Board : 
+          <select name="division" id="division" bind:value={resultDivision}>
+            <option value="noticeboard">게시판</option>
+            <option value="baekjoon">백준</option>
+            <option value="programmers">프로그래머스</option>
+          </select>
         <br/><br/>
-        {#if no == 0}
+        {#if no == 'insert'}
           <textarea id="contentArea" style="display:none"></textarea>
         {:else}
           <textarea id="contentArea" style="display:none" bind:value={content}></textarea>
@@ -212,13 +267,14 @@
             
         </div>
         <br>
-        {#if no == 0}
+        {#if no == 'insert'}
           <input type="submit" name="action" value="저장">
+          <input type="button" value="취소" onclick="history.back()">
         {:else}
           <input type="submit" name="action" value="수정">
-          <input type="submit" name="action" value="삭제" on:click={change}>
+          <input type="submit" name="action" value="삭제" on:click|preventDefault={deleteSubmit}>
         {/if}
     </form>
 </div>
-<br/><br/><br/><br/>
+
   

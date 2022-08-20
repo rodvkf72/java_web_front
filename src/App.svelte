@@ -38,7 +38,9 @@
 
 <Route path="/">
   <Head/>
-  <Index/>
+  <Nav/>
+  <Main/>
+  <Footer/>
 </Route>
 
 <Route path="/main">
@@ -61,12 +63,14 @@
       </Route>
     </Route>
 
+    <!--
     <Route path="/boards">
       <ManageList/>
     </Route>
     <Route path="/board/:no" let:meta>
       <ManageDetail no={meta.params.no}/>
     </Route>
+    -->
 
     <!--
     <Route path="/noticeboards/:page" let:meta>
@@ -163,10 +167,7 @@
 </Route>
 
 <Route path="/board">
-  <Head/>
-  <Nav/>
   <Coding/>
-  <Footer/>
 </Route>
 
 <Route path="/board/*">

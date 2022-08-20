@@ -75,6 +75,7 @@
         <table width="100%;" id="tbl">
           {#if divi == 'noticeboard'}
             {#each resultList as item}
+              <hr>
               <div class="post-preview">
                   <a href="/noticeboard/view/{item.no}">
                       <p class="post-title" style="text-align: center">
@@ -86,7 +87,6 @@
                       on {item.date}
                   </p>
               </div>
-              <hr>
             {/each}
           {:else}
             <tr style="background-color: rgb(230, 230, 230); text-align: center;">

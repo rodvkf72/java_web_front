@@ -62,7 +62,7 @@
       <div class="col-lg-8 col-md-10 mx-auto">
           {#each resultList as item}
             <div class="post-preview">
-                <a href="/Manage/{division}/update/{item.no}">
+                <a href="/Manage/{division}/{item.pk}">
                     <p class="post-title" style="text-align: center; font-size: 30px;">
                         {item.title}
                     </p>
@@ -76,5 +76,5 @@
           {/each}
       </div>
     </div>
-    <a href="http://localhost:4000/Manage/insert">등록</a>
+    <a href="http://localhost:4000/Manage/board/insert">등록</a>
   </div>
