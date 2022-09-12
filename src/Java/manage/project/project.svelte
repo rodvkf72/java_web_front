@@ -36,9 +36,7 @@
         await result;
         console.log(result);
         resultList = list.list;
-        console.log(resultList);
         resultContent = resultList[0].content;
-        division = division.substr(0, division.length-1);
     })
 </script>
 
@@ -63,7 +61,7 @@
       <div class="col-lg-8 col-md-10 mx-auto">
           {#each resultList as item}
             <div class="post-preview">
-                <a href="/Manage/{division}/{item.pk}">
+                <a href="/Manage/project/{item.pk}">
                     <p class="post-title" style="text-align: center; font-size: 30px;">
                         {item.title}
                     </p>

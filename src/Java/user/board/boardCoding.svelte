@@ -19,11 +19,11 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto" style="text-align: center;">
       	<hr>
-      	<br><a href="/board/baekjoon/1">Baekjoon Online Judge</a><br>&nbsp;
+      	<br><a href="/board/baekjoons">Baekjoon Online Judge</a><br>&nbsp;
       	
         <!-- Pager -->
         <hr>
-        <br><a href="/board/programmers/1">Programmers Online Judge</a><br>&nbsp;
+        <br><a href="/board/programmers">Programmers Online Judge</a><br>&nbsp;
         <hr>
       </div>
     </div>

@@ -22,7 +22,7 @@
 
   onMount(async() => {
     let list = [];
-    let result = fetch('http://localhost:8080/' + divi + '/view/' + no,
+    let result = fetch('http://localhost:8080/board/' + divi + '/' + no,
       {
         method: 'POST',
         headers: {
@@ -74,7 +74,7 @@
   <article>
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="col-lg-8 col-md-10 mx-auto view">
           {@html resultList.content}
         </div>
       </div>
@@ -90,7 +90,7 @@
                 {#each popularList as popular, index}
                   {#if index < 1}
                     <div id="slides__{index+1}" class="slide">
-                      <div onclick="location.href='http://localhost:4000/board/{popular.division}/view/{popular.no}'">
+                      <div onclick="location.href='http://localhost:4000/board/{popular.division}/view/{popular.pk}'">
                         <br>
                         <div>{popular.division}</div>
                         <hr style="width:20%;">
@@ -103,7 +103,7 @@
                     </div>
                   {:else if index > popularSizeMinus}
                     <div id="slides__{index+1}" class="slide">
-                      <div onclick="location.href='http://localhost:4000/board/{popular.division}/view/{popular.no}'">
+                      <div onclick="location.href='http://localhost:4000/board/{popular.division}/view/{popular.pk}'">
                         <br>
                         <div>{popular.division}</div>
                         <hr style="width:20%;">
@@ -116,7 +116,7 @@
                     </div>
                   {:else}
                     <div id="slides__{index+1}" class="slide">
-                      <div  onclick="location.href='http://localhost:4000/board/{popular.division}/view/{popular.no}'">
+                      <div  onclick="location.href='http://localhost:4000/board/{popular.division}/view/{popular.pk}'">
                         <br>
                         <div>{popular.division}</div>
                         <hr style="width:20%;">

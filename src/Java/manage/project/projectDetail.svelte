@@ -1,6 +1,7 @@
 <script>
     import { quill } from "svelte-quill";
     import { beforeUpdate, onMount, tick } from "svelte";
+import { element } from "svelte/internal";
 
     const storedToken = localStorage.getItem("tokenStorage");
     
@@ -65,12 +66,21 @@
 
     export let no;
     export let division;
-    let resultList = [];
-    let resultNo;
-    let resultTitle;
-    let resultContent;
     let content;
-    let resultDivision = 'noticeboard';
+    let problemContent;
+    let resultList = [];
+    let resultTitle;
+    let resultInfo;
+    let resultPeople;
+    let resultTechStack;
+    let resultMyJob;
+    let resultNotification;
+    let resultReference;
+    let resultCapture;
+    let resultProblem;
+    let resultDivision;
+    let resultStartDate;
+    let resultEndDate;
 
     if (no == 'insert') {
       console.log("tt");
@@ -95,20 +105,47 @@
         resultList = list.list;
 
         if (resultList.length <= 0) {
-          resultNo = 0;
           resultTitle = "";
-          resultContent = "";
-          resultDivision = "noticeboard";
+          resultInfo = "";
+          resultPeople = "";
+          resultTechStack = "";
+          resultMyJob = "";
+          resultNotification = "";
+          resultReference = "";
+          resultCapture = "";
+          resultProblem = "";
+          resultDivision = "";
+          resultStartDate = "";
+          resultEndDate = "";
         } else {
-          resultNo = resultList[0].no;
           resultTitle = resultList[0].title;
-          resultContent = resultList[0].content;
+          resultInfo = resultList[0].info;
+          resultPeople = resultList[0].people;
+          resultTechStack = resultList[0].techStack;
+          resultMyJob = resultList[0].myJob;
+          resultNotification = resultList[0].notification;
+          resultReference = resultList[0].notification;
+          resultCapture = resultList[0].capture;
+          resultProblem = resultList[0].problem;
           resultDivision = resultList[0].division;
+          resultStartDate = resultList[0].startDate;
+          resultEndDate = resultList[0].endDate;
         }
 
-        resultContent = resultContent.replace(/\<div/gi, '<p');
-        resultContent = resultContent.replace(/\<\/div\>/gi, '</p>');
-        document.querySelector(".ql-editor").innerHTML = resultContent;
+        resultMyJob = resultMyJob.replace(/\<div/gi, '<p');
+        resultMyJob = resultMyJob.replace(/\<\/div\>/gi, '</p>');
+        resultProblem = resultProblem.replace(/\<div/gi, '<p');
+        resultProblem = resultProblem.replace(/\<\/div\>/gi, '</p>');
+        const editors = document.querySelectorAll(".ql-editor");
+        Array.from(editors).forEach((element, index) => {
+            if (index == 0) {
+                element.innerHTML = resultMyJob;
+            } else if (index == 1) {
+                element.innerHTML = resultProblem;
+            }
+        });
+        //document.querySelector(".ql-editor").innerHTML = resultMyJob;
+        //document.querySelector(".ql-editor")[1].innerHTML = resultProblem;
       })
     }
 
@@ -116,6 +153,7 @@
 
     const handleSubmit = () => {
       document.getElementById("contentArea").value = document.getElementById("editor").children[0].innerHTML;
+      document.getElementById("contentArea2").value = document.getElementById("editor2").children[0].innerHTML;
 
       var test = document.location.href.split("/");
       division = test[4];
@@ -131,11 +169,18 @@
 
       if (no == 'insert') {  //글을 새로 쓰는 경우
         obj = {
-          "no" : document.getElementById("no").value,
           "title" : document.getElementById("title").value,
-          "content" : document.getElementById("editor").children[0].innerHTML,
-          "writer" : writer,
-          "division" : document.getElementById("division").value
+          "info" : document.getElementById("info").value,
+          "people" : document.getElementById("people").value,
+          "techStack" : document.getElementById("teck_stack").value,
+          "myJob" : document.getElementById("my_job").children[0].innerHTML,
+          "notification" : document.getElementById("notification").value,
+          "reference" : document.getElementById("reference").value,
+          "capture" : document.getElementById("capture").value,
+          "problem" : document.getElementById("problem").children[0].innerHTML,
+          "division" : document.getElementById("division").value,
+          "startDate" : document.getElementById("start_date").value,
+          "endDate" : document.getElementById("end_date").value
         }
 
         let result = fetch('http://localhost:8080/Manage/' + division,
@@ -153,7 +198,7 @@
         }).then((json) => {
           if (json == "1") {
             alert("데이터 업데이트 완료.");
-            window.location.href='/Manage/' + document.getElementById("division").value + '/s/1';
+            window.location.href='/Manage/projects';
           } else {
             alert("데이터 업데이트 오류. 네트워크 상태 확인 및 관리자 문의");
           }
@@ -161,17 +206,22 @@
       } else {  //글 업데이트의 경우
         obj = {
           "pk" : no,
-          "no" : document.getElementById("no").value,
           "title" : document.getElementById("title").value,
-          "content" : document.getElementById("editor").children[0].innerHTML,
-          "writer" : writer,
-          "division" : document.getElementById("division").value
+          "info" : document.getElementById("info").value,
+          "people" : document.getElementById("people").value,
+          "techStack" : document.getElementById("teck_stack").value,
+          "myJob" : document.getElementById("my_job").children[0].innerHTML,
+          "notification" : document.getElementById("notification").value,
+          "reference" : document.getElementById("reference").value,
+          "capture" : document.getElementById("capture").value,
+          "problem" : document.getElementById("problem").value,
+          "division" : document.getElementById("division").value,
+          "startDate" : document.getElementById("start_date").value,
+          "endDate" : document.getElementById("end_date").value
         }
 
-        //let result = fetch('http://localhost:8080/Manage/'+ division + '/action/' + no,
         let result = fetch('http://localhost:8080/Manage/' + division,
         {
-          //method: 'POST',
           method: 'PATCH',
           headers: {
             "Content-Type" : "application/json",
@@ -185,7 +235,7 @@
       }).then((json) => {
         if (json == "1") {
           alert("데이터 업데이트 완료.");
-          window.location.href='/Manage/' + division + '/s/1';
+          window.location.href='/Manage/' + division + 's';
         } else {
           alert("데이터 업데이트 오류. 네트워크 상태 확인 및 관리자 문의");
         }
@@ -195,12 +245,7 @@
 
   const deleteSubmit = () => {
     let obj = {
-      "pk" : no,
-      "no" : document.getElementById("no").value,
-      "title" : document.getElementById("title").value,
-      "content" : document.getElementById("editor").children[0].innerHTML,
-      "writer" : writer,
-      "division" : document.getElementById("division").value
+      "pk" : no
     }
 
     let result = fetch('http://localhost:8080/Manage/' + division,
@@ -217,7 +262,7 @@
     }).then((json) => {
       if (json == "1") {
         alert("데이터 삭제 완료.");
-        window.location.href='/Manage/' + division + '/s/1';
+        window.location.href='/Manage/projects';
       } else {
         alert("데이터 삭제 오류. 네트워크 상태 확인 및 관리자 문의");
       }
@@ -230,8 +275,8 @@
         width: 80%;
         margin-left: 10%;
     }
-    #editor {
-        height:350px;
+    #editor, #editor2 {
+        height: 350px;
     }
     #form, #title {
         text-align: center;
@@ -255,22 +300,22 @@
 
 <div class="area">
     <form id="form" enctype="multipart/form-data" method="post" action = "http://localhost:18080/Manager/{division}/action/{no}" on:submit|preventDefault={handleSubmit}>
-        No : <input type="text" id="no" bind:value={resultNo}>
+        Title : <input type="text" id="title" bind:value={resultTitle}> 
         <br><br>
-        Title : 
-        {#if no == 'insert'}
-          <input type="text" id="title" bind:value={resultTitle}>
-        {:else}
-          <input type="text" id="title" bind:value={resultTitle}>
-        {/if}
-        <br><br>
-        Board : 
+        Division : 
           <select name="division" id="division" bind:value={resultDivision}>
-            <option value="noticeboard">게시판</option>
-            <option value="baekjoon">백준</option>
-            <option value="programmers">프로그래머스</option>
+            <option value="company">회사 프로젝트</option>
+            <option value="personal">개인 프로젝트</option>
+            <option value="school">학부 프로젝트</option>
           </select>
         <br/><br/>
+        Info : <input type="text" id="info" bind:value={resultInfo}>
+        <br/><br/>
+        People : <input type="text" id="people" bind:value={resultPeople}>
+        <br/><br/>
+        TechStack : <input type="text" id="techStack" bind:value={resultTechStack}>
+        <br/><br/>
+        MyJob : 
         {#if no == 'insert'}
           <textarea id="contentArea" style="display:none"></textarea>
         {:else}
@@ -279,7 +324,26 @@
         <div id="editor" class="editor" use:quill={options} on:text-change={e => content = e.detail}>
             
         </div>
-        <br>
+        <br/><br/>
+        Problem : 
+        {#if no == 'insert'}
+          <textarea id="contentArea2" style="display:none"></textarea>
+        {:else}
+          <textarea id="contentArea2" style="display:none" bind:value={problemContent}></textarea>
+        {/if}
+        <div id="editor2" class="editor" use:quill={options} on:text-change={e => problemContent = e.detail}>
+            
+        </div>
+        <br/><br/>
+        Notification : <input type="text" id="notification" bind:value={resultNotification}>
+        <br/><br/>
+        Reference : <input type="text" id="reference" bind:value={resultReference}>
+        <br/><br/>
+        Capture : <input type="text" id="capture" bind:value={resultCapture}>
+        <br/><br/>
+        StartDate : <input type="text" id="startDate" bind:value={resultStartDate}>&emsp; EndDate : <input type="text" id="endDate" bind:value={resultEndDate}>
+        <br/><br/>
+        
         {#if no == 'insert'}
           <input type="submit" name="action" value="저장">
           <input type="button" value="취소" onclick="history.back()">

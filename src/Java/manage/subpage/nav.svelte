@@ -11,10 +11,13 @@
             <a class="nav-link" href="/main">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="javascript:location.href='/Manage/noticeboard/s/1'">NoticeBoard</a>
+            <a class="nav-link" href="javascript:location.href='/Manage/projects'">Project</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="javascript:location.href='/Manage/baekjoon/s/1'">Baekjoon</a>
+            <a class="nav-link" href="javascript:location.href='/Manage/noticeboards'">NoticeBoard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:location.href='/Manage/baekjoons'">Baekjoon</a>
           </li>
         </ul>
       </div>

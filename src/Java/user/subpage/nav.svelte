@@ -14,10 +14,10 @@
             <a class="nav-link" href="/info">INFO</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="javascript:location.href='/board/noticeboard/1'">NoticeBoard</a>
+            <a class="nav-link" href="javascript:location.href='/board/noticeboards'">NoticeBoard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/project">Project</a>
+            <a class="nav-link" href="/projects">Project</a>
           </li>
           <li class="nav-item">
             <!--

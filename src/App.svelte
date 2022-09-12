@@ -14,6 +14,7 @@
     import Board from './Java/user/board/board.svelte';
     import BoardDetail from './Java/user/board/boardDetail.svelte';
     import Project from './Java/user/project/project.svelte';
+    import ProjectDetail from "./Java/user/project/projectDetail.svelte";
     import MyInfo from './Java/user/info/myinfo.svelte';
 
     import ManageHead from './Java/manage/subpage/head.svelte';
@@ -21,6 +22,8 @@
     import ManageMain from './Java/manage/main.svelte';
     import ManageList from './Java/manage/board/board.svelte';
     import ManageDetail from './Java/manage/board/boardDetail.svelte';
+    import ManageProjectList from './Java/manage/project/project.svelte';
+    import ManageProjectDetail from './Java/manage/project/projectDetail.svelte';
     import ManageLogin from './Java/manage/login/login.svelte';
 </script>
 
@@ -53,13 +56,33 @@
 <Route path="/Manage/*">
     <ManageHead/>
     <ManageNav/>
+<!--
+    <Route path="/projects" let:meta>
+      <ManageProjectList/>
+    </Route>
+    <Route path="/project/:no" let:meta>
+      <ManageProjectDetail page={meta.params.page}/>
+    </Route>
+-->
 
     <Route path="/:division/*" let:meta>
-      <Route path="/s/:page" let:meta>
-        <ManageList division={meta.params.division} page={meta.params.page}/>  
+      <Route path="/" let:meta>
+        {#if meta.params.division == 'projects'}
+            <ManageProjectList division={meta.params.division}/>  
+        {:else if meta.params.division == 'noticeboards'}
+            <ManageList division={meta.params.division}/>
+        {:else if meta.params.division == 'baekjoons'}
+            <ManageList division={meta.params.division}/>
+        {:else if meta.params.division == 'programmers'}
+            <ManageList division={meta.params.division}/>
+        {/if}
       </Route>
       <Route path="/:no" let:meta>
-        <ManageDetail division={meta.params.division} no={meta.params.no}/>  
+        {#if meta.params.division == 'project'}
+          <ManageProjectDetail division={meta.params.division} no={meta.params.no}/>
+        {:else}
+          <ManageDetail division={meta.params.division} no={meta.params.no}/>
+        {/if}
       </Route>
     </Route>
 
@@ -159,20 +182,46 @@
   <Footer/>
 </Route>
 
-<Route path="/project">
-  <Head/>
-  <Nav/>
-  <Project/>
-  <Footer/>
-</Route>
-
-<Route path="/board">
-  <Coding/>
+<Route path="/:divi/*" let:meta>
+  {#if meta.params.divi =='projects'}
+    <Head/>
+    <Nav/>
+    <Route path="/">
+      <Project/>
+    </Route>
+    <Footer/>
+  {:else if meta.params.divi == 'project'}
+    <Head/>
+    <Nav/>
+    <Route path="/:no" let:meta>
+        <ProjectDetail no={meta.params.no}/>
+    </Route>
+    <Footer/>
+  {/if}
 </Route>
 
 <Route path="/board/*">
   <Head/>
   <Nav/>
+  <Route path="/">
+    <Coding/>
+  </Route>
+  <Route path="/:divi/*" let:meta>
+    <Route path="/" let:meta>
+      <Board divi={meta.params.divi}/>
+    </Route>
+    <Route path="/:no" let:meta>
+      <BoardDetail divi={meta.params.divi} no={meta.params.no}/>
+      <Utterances
+        repo="rodvkf72/Utterances"
+        theme="github-light"
+        issueTerm="url"
+      />
+      <hr>
+    </Route>
+  </Route>
+
+  <!--
   <Route path="/:divi/*" let:meta>
     <Route path="/:page" let:meta>
       <Board divi={meta.params.divi} page={meta.params.page}/>
@@ -187,5 +236,6 @@
       <hr>
     </Route>
   </Route>
+  -->
   <Footer/>
 </Route>

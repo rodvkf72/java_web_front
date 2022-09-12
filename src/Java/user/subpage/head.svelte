@@ -18,8 +18,15 @@
   <!-- Custom styles for this template -->
   <link href="/Java/css/blog/clean-blog.min.css" rel="stylesheet">
   <link href="/Java/css/blog/custom.css" rel="stylesheet">
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <link type="application/atom+xml" rel="alternate" href="https://quilljs.com/feed.xml" title="Quill - Your powerful rich text editor" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" rel="stylesheet"/>
 
     <!-- Bootstrap core JavaScript -->
   <script src="/Java/vendor/comming/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  </svelte:head>
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+</svelte:head>
