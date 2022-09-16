@@ -1,3 +1,15 @@
+<script>
+    import { onMount } from "svelte";
+
+    const storedToken = localStorage.getItem("tokenStorage");
+
+    onMount(async() => {
+        console.log(storedToken);
+        if (storedToken == "" || storedToken == null) {
+            window.location.href="http://localhost:4000/Manage/login";
+        }
+    })
+</script>
 <header class="masthead" style="background-image: url('/Java/image/home-bg.jpg')">
     <div class="overlay"></div>
     <div class="container">
