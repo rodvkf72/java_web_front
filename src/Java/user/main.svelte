@@ -7,6 +7,7 @@
                   <h2>Bottle Collector's Log</h2>
                   <br>
                   <span class="subheading">맥주병을 수집하는 개발자</span>
+                  <br>
                 </div>
             </div>
         </div>

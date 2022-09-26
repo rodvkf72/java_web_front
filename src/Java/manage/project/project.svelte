@@ -75,5 +75,5 @@
           {/each}
       </div>
     </div>
-    <a href="http://localhost:4000/Manage/board/insert">등록</a>
+    <a href="http://localhost:4000/Manage/project/insert">등록</a>
   </div>

@@ -1,179 +1,148 @@
 <script>
-    import {onMount} from 'svelte';
-    export let divi;
-    export let no;
-  
-    let max;
-    let resultList = [];
-    let paging = [];
-  
-    onMount(async() => {
-      resultList = [];
-      paging = [];
-      let list = [];
-      let result = fetch('http://localhost:8080/project/' + no,
-        {
-          method: 'POST',
-          headers: {
-            "Content-Type" : "application/json",
-          }
+  import {onMount} from 'svelte';
+  export let divi;
+  export let no;
+
+  let max;
+  let resultList = [];
+  let paging = [];
+
+  onMount(async() => {
+    resultList = [];
+    paging = [];
+    let list = [];
+    let result = fetch('http://localhost:8080/project/' + no,
+      {
+        method: 'POST',
+        headers: {
+          "Content-Type" : "application/json",
         }
-      ).then((res) => {
-        return res.json();
-      }).then((json) => {
-        list = json;
-      });
-  
-      await result;
-      resultList = list.list;
-      console.log(resultList);
-    })
-  </script>
-  
-  <style>
-    @media (max-width: 767px) {
-      .card {
-        display: flex;
-        justify-content: left;
-        position: relative;
-        width: 80%;
-        line-height: 1.6;
-        font-size: 0.8em;
-        background-color: rgba(0, 0, 0, 0.01);
-        margin: auto;
-        padding: 1%;
-        cursor: pointer;
       }
-    }
-    .card-parent {
-      display: flex;
-      justify-content: left;
-      flex-wrap: wrap;
-      position: relative;
-    }
+    ).then((res) => {
+      return res.json();
+    }).then((json) => {
+      list = json;
+    });
+
+    await result;
+    resultList = list.list[0];
+    resultList.info = resultList.info.replace(/(?:\r\n|\r|\n)/g,'<br/>');
+  })
+</script>
+
+<style>
+  .row {
+    font-size: 17px;
+  }
+  .sub {
+    font-size: 20px;
+    text-align: center;
+  }
+  .long {
+    font-size: 17px;
+    text-align: left;
+  }
+  .short {
+    font-size: 17px;
+    text-align: center;
+  }
+</style>
   
-    .card {
-      line-height: 1.6;
-      font-size: 0.8em;
-      background-color: rgba(0, 0, 0, 0.01);
-      box-shadow: 0 0 0 1px #e1e1e1 inset;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-  
-    .card-body {
-      padding: 1em;
-    }
-  
-    .card-content {
-      position: relative;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  
-    .card-date {
-      font-size: 0.8em;
-    }
-  </style>
-  
-  <!-- Page Header -->
-  <header class="masthead" style="background-image: url('/Java/image/home-bg.jpg')">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <div class="site-heading">
-              <h2>
-                프로젝트
-              </h2>
-              <br>
-                <span class="subheading">상세 페이지</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-  
-    <!-- Main Content -->
-    <div style="width: 80%; text-align: center; margin: auto;">
-      <div class="card-parent">
-        {#each resultList as item}
-        123
-        <div class="col-lg-3 col-md-6 mb-3 card" onClick="location.href='/board/noticeboard/view/{item.pk}'">
-            <div class="card-body">
-            <div class="card-title">
-                <b>{item.title}</b>
-            </div>
-            <div class="card-content">
-                {@html item.info.replace(/(<p[^>]+?>|<p>|<\/p>)/img, '').replace(/(<b[^>]+?>|<b>|<\/b>)/img, '').replace(/(<span[^>]+?>|<span>|<\/span>)/img, '').substring(0, 100)}
-            </div>
-            </div>
-            <div class="card-buttom">
-            <div class="card-date">
-                {item.date}
-            </div>
-            </div>
-        </div>
-        {/each}
-        
-  
-  <!--
-          {@html item.content.split("<p>")[1]}
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <table width="100%;" id="tbl">
-            {#if divi == 'noticeboard'}
-              <div class="row">
-              {#each resultList as item}
-                <hr>
-                <div class="post-preview">
-                    <a href="/board/noticeboard/view/{item.pk}">
-                        <p class="post-title" style="text-align: center">
-                            {item.title}
-                        </p>
-                    </a>
-                    <p class="post-meta" style="text-align: right">Posted by 
-                        <a href="#">{item.writer}</a>
-                        on {item.date}
-                    </p>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 10%; height: 10%;">
-                  <div class="card h-20">
-                    <img class="card-img-top" src="../../resources/image/pop_bg.png" alt="">
-                    <div class="card-body">
-                      <h4 class="card-title">
-                        <a href="/board/noticeboard/view{item.pk}">캐시나무</a>
-                      </h4>
-                      <h5>{item.date}</h5>
-                      <p class="card-text">{@html item.content.split("<p>")[1]}</p>
-                    </div>
-                  </div>
-                </div>
-              {/each}
-              </div>
-            {:else}
-              <tr style="background-color: rgb(230, 230, 230); text-align: center;">
-                <th>
-                  <b>번 호</b>
-                </th>
-                <th>
-                  <b>문 제</b>
-                </th>
-              </tr>
-              {#each resultList as item}
-                <tbody style="text-align: center;">
-                  <td><hr>&nbsp;<br>{item.no}<br>&nbsp;</td>
-                  <td><hr>&nbsp;<br><a href="/board/{divi}/view/{item.no}">{item.title}</a><br>&nbsp;</td>
-                </tbody>
-              {/each}
-            {/if}
-            
-          </table>
-  -->        
+<header class="masthead" style="background-image: url('/Java/image/post-bg.jpg')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-heading">
           
-          <hr>
+          <h2>{ resultList.title }</h2>
+          <br>
+          <span class="meta">
+            프로젝트 분류 : 
+            {#if resultList.division == 'company'}
+            회사 프로젝트
+            {:else if resultList.division == 'personal'}
+            개인 프로젝트
+            {:else}
+            교내 프로젝트
+            {/if}
+            ({resultList.startDate} ~ {resultList.endDate})
+          </span>
+            
+          <!--<h1>${ item.title }</h1>-->
+          <br>
+          <!-- <h2 class="subheading">Problems look mighty small from 150 miles up</h2> -->
+          <!--<span class="meta">Posted by ${ item.writer } on ${ item.date }</span>-->
         </div>
-        
       </div>
+    </div>
+  </div>
+</header>
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto view sub">
+        <div class="sub">
+          <b>알림</b>
+          <hr style="width: 15%;">
+        </div>
+        <div class="short">
+          {resultList.notification}
+        </div>
+        <br><br><br>
+        <div class="sub">
+          <b>프로젝트 소개</b>
+          <hr style="width: 15%;">
+        </div>
+        <div class="long">
+          {@html resultList.info}
+        </div>
+        <br><br><br>
+        <div class="sub">
+          <b>참여인원</b>
+          <hr style="width: 15%;">
+        </div>
+        <div class="short">
+          {@html resultList.people}
+        </div>
+        <br><br><br>
+        <div class="sub">
+          <b>기술스택</b>
+          <hr style="width: 15%;">
+        </div>
+        <div class="short">
+          {@html resultList.techStack}
+        </div>
+        <br><br><br>
+        <div class="sub">
+          <b>작업내용</b>
+          <hr style="width: 15%;">
+        </div>
+        <div class="long">
+          {@html resultList.myJob}
+        </div>
+        <br>
+        <div class="sub">
+          <b>문제점</b>
+          <hr style="width: 15%;">
+        </div>
+        <div class="long">
+          {@html resultList.problem}
+        </div>
+        <br><br><br>
+        <div class="sub">
+          <b>참조 사이트</b>
+          <hr style="width: 15%;">
+        </div>
+        <div class="short">
+          <a href="{resultList.reference}">{resultList.reference}</a>
+        </div>
+        <br>
+      </div>
+    </div>
+    <br>
+  </div>
+  <hr>
+</article>

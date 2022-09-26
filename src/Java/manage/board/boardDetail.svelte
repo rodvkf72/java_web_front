@@ -59,7 +59,7 @@
             },
           },
         },
-        placeholder: "Type something...",
+        placeholder: "Content...",
         theme: "snow",
     }
 
@@ -71,6 +71,7 @@
     let resultContent;
     let content;
     let resultDivision = 'noticeboard';
+    let resultTag;
 
     if (no == 'insert') {
       console.log("tt");
@@ -99,11 +100,13 @@
           resultTitle = "";
           resultContent = "";
           resultDivision = "noticeboard";
+          resultTag = "";
         } else {
           resultNo = resultList[0].no;
           resultTitle = resultList[0].title;
           resultContent = resultList[0].content;
           resultDivision = resultList[0].division;
+          resultTag = resultList[0].tag;
         }
 
         resultContent = resultContent.replace(/\<div/gi, '<p');
@@ -135,7 +138,8 @@
           "title" : document.getElementById("title").value,
           "content" : document.getElementById("editor").children[0].innerHTML,
           "writer" : writer,
-          "division" : document.getElementById("division").value
+          "division" : document.getElementById("division").value,
+          "tag" : document.getElementById("tag").value
         }
 
         let result = fetch('http://localhost:8080/Manage/' + division,
@@ -165,7 +169,8 @@
           "title" : document.getElementById("title").value,
           "content" : document.getElementById("editor").children[0].innerHTML,
           "writer" : writer,
-          "division" : document.getElementById("division").value
+          "division" : document.getElementById("division").value,
+          "tag" : document.getElementById("tag").value
         }
 
         //let result = fetch('http://localhost:8080/Manage/'+ division + '/action/' + no,
@@ -200,7 +205,8 @@
       "title" : document.getElementById("title").value,
       "content" : document.getElementById("editor").children[0].innerHTML,
       "writer" : writer,
-      "division" : document.getElementById("division").value
+      "division" : document.getElementById("division").value,
+      "tag" : document.getElementById("tag").value
     }
 
     let result = fetch('http://localhost:8080/Manage/' + division,
@@ -233,8 +239,11 @@
     #editor {
         height:350px;
     }
-    #form, #title {
-        text-align: center;
+    #no, #title, #tag{
+      width: 100%;
+    }
+    #btn {
+      text-align: center;
     }
 </style>
 
@@ -255,22 +264,10 @@
 
 <div class="area">
     <form id="form" enctype="multipart/form-data" method="post" action = "http://localhost:18080/Manager/{division}/action/{no}" on:submit|preventDefault={handleSubmit}>
-        No : <input type="text" id="no" bind:value={resultNo}>
+        <input type="text" id="no" placeholder="No" bind:value={resultNo}>
         <br><br>
-        Title : 
-        {#if no == 'insert'}
-          <input type="text" id="title" bind:value={resultTitle}>
-        {:else}
-          <input type="text" id="title" bind:value={resultTitle}>
-        {/if}
+        <input type="text" id="title" placeholder="Title" bind:value={resultTitle}>
         <br><br>
-        Board : 
-          <select name="division" id="division" bind:value={resultDivision}>
-            <option value="noticeboard">게시판</option>
-            <option value="baekjoon">백준</option>
-            <option value="programmers">프로그래머스</option>
-          </select>
-        <br/><br/>
         {#if no == 'insert'}
           <textarea id="contentArea" style="display:none"></textarea>
         {:else}
@@ -280,6 +277,16 @@
             
         </div>
         <br>
+        <input type="text" id="tag" placeholder="Hash Tag" bind:value={resultTag}>
+        <br><br>
+        분류 : 
+          <select name="division" id="division" bind:value={resultDivision}>
+            <option value="noticeboard">게시판</option>
+            <option value="baekjoon">백준</option>
+            <option value="programmers">프로그래머스</option>
+          </select>
+        <br/><br/>
+        <div id="btn">
         {#if no == 'insert'}
           <input type="submit" name="action" value="저장">
           <input type="button" value="취소" onclick="history.back()">
@@ -287,6 +294,7 @@
           <input type="submit" name="action" value="수정">
           <input type="submit" name="action" value="삭제" on:click|preventDefault={deleteSubmit}>
         {/if}
+        </div>
     </form>
 </div>
 

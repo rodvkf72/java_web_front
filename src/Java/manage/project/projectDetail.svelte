@@ -13,7 +13,6 @@ import { element } from "svelte/internal";
       input.click();
       
       input.addEventListener('change', async() => {
-        console.log("change");
         var file = input.files[0];
         var formData = new FormData();
         formData.append('img', file);
@@ -60,7 +59,7 @@ import { element } from "svelte/internal";
             },
           },
         },
-        placeholder: "Type something...",
+        placeholder: "Content...",
         theme: "snow",
     }
 
@@ -170,17 +169,17 @@ import { element } from "svelte/internal";
       if (no == 'insert') {  //글을 새로 쓰는 경우
         obj = {
           "title" : document.getElementById("title").value,
-          "info" : document.getElementById("info").value,
+          "info" : document.getElementById("info").value.replace(/\n/g, "<br>"),
           "people" : document.getElementById("people").value,
-          "techStack" : document.getElementById("teck_stack").value,
-          "myJob" : document.getElementById("my_job").children[0].innerHTML,
+          "techStack" : document.getElementById("techStack").value,
+          "myJob" : document.getElementById("editor").children[0].innerHTML,
           "notification" : document.getElementById("notification").value,
           "reference" : document.getElementById("reference").value,
           "capture" : document.getElementById("capture").value,
-          "problem" : document.getElementById("problem").children[0].innerHTML,
+          "problem" : document.getElementById("editor2").children[0].innerHTML,
           "division" : document.getElementById("division").value,
-          "startDate" : document.getElementById("start_date").value,
-          "endDate" : document.getElementById("end_date").value
+          "startDate" : document.getElementById("startDate").value,
+          "endDate" : document.getElementById("endDate").value
         }
 
         let result = fetch('http://localhost:8080/Manage/' + division,
@@ -209,15 +208,15 @@ import { element } from "svelte/internal";
           "title" : document.getElementById("title").value,
           "info" : document.getElementById("info").value,
           "people" : document.getElementById("people").value,
-          "techStack" : document.getElementById("teck_stack").value,
-          "myJob" : document.getElementById("my_job").children[0].innerHTML,
+          "techStack" : document.getElementById("techStack").value,
+          "myJob" : document.getElementById("editor").children[0].innerHTML,
           "notification" : document.getElementById("notification").value,
           "reference" : document.getElementById("reference").value,
           "capture" : document.getElementById("capture").value,
-          "problem" : document.getElementById("problem").value,
+          "problem" : document.getElementById("editor2").children[0].innerHTML,
           "division" : document.getElementById("division").value,
-          "startDate" : document.getElementById("start_date").value,
-          "endDate" : document.getElementById("end_date").value
+          "startDate" : document.getElementById("startDate").value,
+          "endDate" : document.getElementById("endDate").value
         }
 
         let result = fetch('http://localhost:8080/Manage/' + division,
@@ -278,7 +277,12 @@ import { element } from "svelte/internal";
     #editor, #editor2 {
         height: 350px;
     }
-    #form, #title {
+
+    #title, #info, #people, #techStack, #notification, #reference, #capture {
+      width: 100%;
+    }
+
+    #btn {
         text-align: center;
     }
 </style>
@@ -300,22 +304,15 @@ import { element } from "svelte/internal";
 
 <div class="area">
     <form id="form" enctype="multipart/form-data" method="post" action = "http://localhost:18080/Manager/{division}/action/{no}" on:submit|preventDefault={handleSubmit}>
-        Title : <input type="text" id="title" bind:value={resultTitle}> 
+        <input type="text" id="title" placeholder="Title" bind:value={resultTitle}> 
         <br><br>
-        Division : 
-          <select name="division" id="division" bind:value={resultDivision}>
-            <option value="company">회사 프로젝트</option>
-            <option value="personal">개인 프로젝트</option>
-            <option value="school">학부 프로젝트</option>
-          </select>
+        <textarea id="info" placeholder="Simple Info" rows="7" cols="40" wrap="hard" bind:value={resultInfo}></textarea>
         <br/><br/>
-        Info : <input type="text" id="info" bind:value={resultInfo}>
+        <input type="text" id="people" placeholder="Partification People" bind:value={resultPeople}>
         <br/><br/>
-        People : <input type="text" id="people" bind:value={resultPeople}>
+        <input type="text" id="techStack" placeholder="Tech Stack" bind:value={resultTechStack}>
         <br/><br/>
-        TechStack : <input type="text" id="techStack" bind:value={resultTechStack}>
-        <br/><br/>
-        MyJob : 
+        작업내용
         {#if no == 'insert'}
           <textarea id="contentArea" style="display:none"></textarea>
         {:else}
@@ -325,25 +322,34 @@ import { element } from "svelte/internal";
             
         </div>
         <br/><br/>
-        Problem : 
+        문제점
         {#if no == 'insert'}
           <textarea id="contentArea2" style="display:none"></textarea>
         {:else}
           <textarea id="contentArea2" style="display:none" bind:value={problemContent}></textarea>
         {/if}
-        <div id="editor2" class="editor" use:quill={options} on:text-change={e => problemContent = e.detail}>
+        <div id="editor2" class="editor2" use:quill={options} on:text-change={e => problemContent = e.detail}>
             
         </div>
         <br/><br/>
-        Notification : <input type="text" id="notification" bind:value={resultNotification}>
+        <input type="text" id="notification" placeholder="Notification" bind:value={resultNotification}>
         <br/><br/>
-        Reference : <input type="text" id="reference" bind:value={resultReference}>
+        <input type="text" id="reference" placeholder="Reference" bind:value={resultReference}>
         <br/><br/>
-        Capture : <input type="text" id="capture" bind:value={resultCapture}>
+        <input type="text" id="capture" placeholder="Capture" bind:value={resultCapture}>
         <br/><br/>
-        StartDate : <input type="text" id="startDate" bind:value={resultStartDate}>&emsp; EndDate : <input type="text" id="endDate" bind:value={resultEndDate}>
+        <input type="text" id="startDate" placeholder="Start Date" bind:value={resultStartDate}> ~ <input type="text" id="endDate" placeholder="End Date" bind:value={resultEndDate}>
         <br/><br/>
         
+        분류
+        <select name="division" id="division" bind:value={resultDivision}>
+          <option value="company">회사 프로젝트</option>
+          <option value="personal">개인 프로젝트</option>
+          <option value="school">학부 프로젝트</option>
+        </select>
+        <br/><br/>
+
+        <div id="btn">
         {#if no == 'insert'}
           <input type="submit" name="action" value="저장">
           <input type="button" value="취소" onclick="history.back()">
@@ -351,6 +357,7 @@ import { element } from "svelte/internal";
           <input type="submit" name="action" value="수정">
           <input type="submit" name="action" value="삭제" on:click|preventDefault={deleteSubmit}>
         {/if}
+        </div>
     </form>
 </div>
 

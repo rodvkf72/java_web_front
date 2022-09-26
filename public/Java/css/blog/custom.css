@@ -219,3 +219,17 @@ iframe[sandbox] .read-article{
   color: white;
   font-size: 12px;
 }
+
+.custom-btn {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0);
+  color: rgba(0, 0, 0, 0.5);
+  margin-top: 3%;
+  border-radius: 5px;
+  width: 40px;
+}
+
+.custom-btn:hover {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.2);
+}

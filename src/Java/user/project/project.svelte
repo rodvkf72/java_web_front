@@ -2,13 +2,39 @@
   import {onMount} from 'svelte';
   export let divi;
 
-  let max;
+  let companyCnt;
+  let personalCnt;
+  let schoolCnt;
   let resultList = [];
-  let paging = [];
+  let companyResult = [];
+  let personalResult = [];
+  let schoolResult = [];
+  let pagingCompany = [];
+  let pagingPersonal = [];
+  let pagingSchool = [];
+
+  
+  function change(division, page) {
+    let p = page * 12;
+    for (var i = 0; i < division+'Result'.length; i++) {
+      document.getElementsByClassName(division+'Display'+i)[0].style.display="none";
+    }
+    for (var i = p; i < p + 12; i++) {
+      if (division+'Result'.length > i) {
+        document.getElementsByClassName(division+'Display'+i)[0].style.display="";
+      }
+    }
+  }
+
+  function pagingFunc(cnt, division) {
+    for (var i = 1; i <= Math.ceil(cnt / 12); i++) {
+      division.push({no : String(i)});
+    }
+    return division
+  }
 
   onMount(async() => {
     resultList = [];
-    paging = [];
     let list = [];
     let result = fetch('http://localhost:8080/projects/',
       {
@@ -25,6 +51,27 @@
 
     await result;
     resultList = list.list;
+
+    for (var i = 0; i < resultList.length; i++) {
+      if (resultList[i].division == 'company') {
+        companyResult.push(resultList[i]);
+      } else if (resultList[i].division == 'personal') {
+        personalResult.push(resultList[i]);
+      } else {
+        schoolResult.push(resultList[i]);
+      }
+    }
+    companyResult = companyResult;
+    personalResult = personalResult;
+    schoolResult = schoolResult;
+
+    companyCnt = list.max[0].pk;
+    personalCnt = list.max[1].pk;
+    schoolCnt = list.max[2].pk;
+
+    pagingCompany = pagingFunc(companyCnt, pagingCompany);
+    pagingPersonal = pagingFunc(personalCnt, pagingPersonal);
+    pagingSchool = pagingFunc(schoolCnt, pagingSchool);
   })
 </script>
 
@@ -97,10 +144,15 @@
 
   <!-- Main Content -->
   <div style="width: 80%; text-align: center; margin: auto;">
-    <div class="card-parent">
+    
+    {#if companyResult.length > 0}
+      <b>회사 프로젝트</b>
+      <hr style="width: 15%;">
+    {/if}
 
-      {#each resultList as item}
-        <div class="col-lg-3 col-md-6 mb-3 card" onClick="location.href='/board/noticeboard/view/{item.pk}'">
+    <div class="card-parent">
+      {#each companyResult as item, i}
+        <div class="col-lg-3 col-md-6 mb-3 card companyDisplay{i}" onClick="location.href='/project/{item.pk}'">
           <div class="card-body">
             <div class="card-title">
               <b>{item.title}</b>
@@ -111,23 +163,86 @@
           </div>
           <div class="card-buttom">
             <div class="card-date">
-              {item.date}
+              {item.startDate} ~ {item.endDate}
             </div>
           </div>
         </div>
       {/each}
+    </div>
+    <div class="clearfix">
+      <div id="b_dv" style="text-align: center">
+        {#each pagingCompany as item}
+          <input class="custom-btn" type="button" value="{item.no}" on:click={change('company', item.no-1)}>&nbsp;
+        {/each}
+      </div>
+    </div>
+    <br><br>
+      
+    {#if personalResult.length > 0}
+      <b>개인 프로젝트</b>
+      <hr style="width: 15%;">
+    {/if}
 
-        <hr>
-        <div class="clearfix">
-          <div id="b_dv" style="text-align: center">
-            {#each paging as item}
-              <input type="button" value="{item.no}" onclick="location.href='/board/{divi}/{item.no}'">&nbsp;
-            {/each}
+    <div class="card-parent">
+      {#each personalResult as item, i}
+        <div class="col-lg-3 col-md-6 mb-3 card personalDisplay{i}" onClick="location.href='/project/{item.pk}'">
+          <div class="card-body">
+            <div class="card-title">
+              <b>{item.title}</b>
+            </div>
+            <div class="card-content">
+              {@html item.info.replace(/(<p[^>]+?>|<p>|<\/p>)/img, '').replace(/(<b[^>]+?>|<b>|<\/b>)/img, '').replace(/(<span[^>]+?>|<span>|<\/span>)/img, '').substring(0, 100)}
+            </div>
+          </div>
+          <div class="card-buttom">
+            <div class="card-date">
+              {item.startDate} ~ {item.endDate}
+            </div>
           </div>
         </div>
-      </div>
-      
+      {/each}
     </div>
+    <div class="clearfix">
+      <div id="b_dv" style="text-align: center">
+        {#each pagingPersonal as item}
+        <input class="custom-btn" type="button" value="{item.no}" on:click={change('personal', item.no-1)}>&nbsp;
+        {/each}
+      </div>
+    </div>
+
+    {#if schoolResult.length > 0}
+      <b>교내 프로젝트</b>
+      <hr style="width: 15%;">
+    {/if}
+
+    <div class="card-parent">
+      {#each schoolResult as item, i}
+        <div class="col-lg-3 col-md-6 mb-3 card schoolDisplay{i}" onClick="location.href='/project/{item.pk}'">
+          <div class="card-body">
+            <div class="card-title">
+              <b>{item.title}</b>
+            </div>
+            <div class="card-content">
+              {@html item.info.replace(/(<p[^>]+?>|<p>|<\/p>)/img, '').replace(/(<b[^>]+?>|<b>|<\/b>)/img, '').replace(/(<span[^>]+?>|<span>|<\/span>)/img, '').substring(0, 100)}
+            </div>
+          </div>
+          <div class="card-buttom">
+            <div class="card-date">
+              {item.startDate} ~ {item.endDate}
+            </div>
+          </div>
+        </div>
+      {/each}
+    </div>
+    <div class="clearfix">
+      <div id="b_dv" style="text-align: center">
+        {#each pagingSchool as item}
+        <input class="custom-btn" type="button" value="{item.no}" on:click={change('school', item.no-1)}>&nbsp;
+        {/each}
+      </div>
+    </div>
+
+  </div>
 
 
 

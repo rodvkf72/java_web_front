@@ -4,7 +4,6 @@
     const storedToken = localStorage.getItem("tokenStorage");
 
     onMount(async() => {
-        console.log(storedToken);
         if (storedToken == "" || storedToken == null) {
             window.location.href="http://localhost:4000/Manage/login";
         }

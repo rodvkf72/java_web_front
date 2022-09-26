@@ -1,5 +1,7 @@
 <script>
   import {onMount} from 'svelte';
+  import { afterUpdate } from 'svelte';
+  import { beforeUpdate } from 'svelte';
   export let divi;
 
   let max;
@@ -7,6 +9,19 @@
   let paging = [];
   let url;
 
+  
+  function change(page) {
+    let p = page * 12;
+    for (var i = 0; i < resultList.length; i++) {
+      document.getElementsByClassName('display'+i)[0].style.display="none";
+    }
+    for (var i = p; i < p + 12; i++) {
+      if (resultList.length > i) {
+        document.getElementsByClassName('display'+i)[0].style.display="";
+      }
+    }
+  }
+  
   onMount(async() => {
     resultList = [];
     paging = [];
@@ -26,11 +41,10 @@
 
     await result;
     resultList = list.list;
-    console.log(resultList[0].content.split("<p>")[1]);
     max = list.max[0].no;
       
     let empty = [];
-    for (var i = 1; i <= Math.ceil(max / 10); i++) {
+    for (var i = 1; i <= Math.ceil(max / 12); i++) {
       empty.push({no : String(i)});
     }
     
@@ -128,86 +142,57 @@
   <!-- Main Content -->
   <div style="width: 80%; text-align: center; margin: auto;">
     <div class="card-parent">
-        {#each resultList as item}
-            <div class="col-lg-3 col-md-6 mb-3 card" onClick="location.href='/board/{url}/{item.pk}'">
-            <div class="card-body">
-              <div class="card-title">
-                <b>{item.title}</b>
-              </div>
-              <div class="card-content">
-                {@html item.content.replace(/(<p[^>]+?>|<p>|<\/p>)/img, '').replace(/(<b[^>]+?>|<b>|<\/b>)/img, '').replace(/(<span[^>]+?>|<span>|<\/span>)/img, '').substring(0, 100)}
-              </div>
-            </div>
-            <div class="card-buttom">
-              <div class="card-date">
-                {item.date}
-              </div>
-            </div>
-          </div>
-        {/each}
-      
-
-<!--
-        {@html item.content.split("<p>")[1]}
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <table width="100%;" id="tbl">
-          {#if divi == 'noticeboard'}
-            <div class="row">
-            {#each resultList as item}
-              <hr>
-              <div class="post-preview">
-                  <a href="/board/noticeboard/view/{item.pk}">
-                      <p class="post-title" style="text-align: center">
-                          {item.title}
-                      </p>
-                  </a>
-                  <p class="post-meta" style="text-align: right">Posted by 
-                      <a href="#">{item.writer}</a>
-                      on {item.date}
-                  </p>
-              </div>
-              <div class="col-lg-4 col-md-6 mb-4" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 10%; height: 10%;">
-                <div class="card h-20">
-                  <img class="card-img-top" src="../../resources/image/pop_bg.png" alt="">
-                  <div class="card-body">
-                    <h4 class="card-title">
-                      <a href="/board/noticeboard/view{item.pk}">캐시나무</a>
-                    </h4>
-                    <h5>{item.date}</h5>
-                    <p class="card-text">{@html item.content.split("<p>")[1]}</p>
-                  </div>
+        <!-- if else 문에서 공통된 부분을 빼서 처리하려고 해도 <div>와 같은 HTML 태그가 종료되지 않으면 if else 문에서 에러가 남..-->
+        {#each resultList as item, i}
+          {#if i < 12}
+            <div class="col-lg-3 col-md-6 mb-3 card display{i}" onClick="location.href='/board/{url}/{item.pk}'">
+              <div class="card-body">
+                <div class="card-title">
+                  <b>{item.title}</b>
+                </div>
+                <div class="card-content">
+                  {#if divi == 'noticeboards'}
+                    {@html item.content.replace(/(<p[^>]+?>|<p>|<\/p>)/img, '').replace(/(<b[^>]+?>|<b>|<\/b>)/img, '').replace(/(<span[^>]+?>|<span>|<\/span>)/img, '').substring(0, 100)}
+                  {:else}
+                    {item.tag}
+                  {/if}
                 </div>
               </div>
-            {/each}
+              <div class="card-buttom">
+                <div class="card-date">
+                  {item.date}
+                </div>
+              </div>
             </div>
           {:else}
-            <tr style="background-color: rgb(230, 230, 230); text-align: center;">
-              <th>
-                <b>번 호</b>
-              </th>
-              <th>
-                <b>문 제</b>
-              </th>
-            </tr>
-            {#each resultList as item}
-              <tbody style="text-align: center;">
-                <td><hr>&nbsp;<br>{item.no}<br>&nbsp;</td>
-                <td><hr>&nbsp;<br><a href="/board/{divi}/view/{item.no}">{item.title}</a><br>&nbsp;</td>
-              </tbody>
-            {/each}
+            <div class="col-lg-3 col-md-6 mb-3 card display{i}" onClick="location.href='/board/{url}/{item.pk}'" style="display: none">
+              <div class="card-body">
+                <div class="card-title">
+                  <b>{item.title}</b>
+                </div>
+                <div class="card-content">
+                  {#if divi == 'noticeboards'}
+                    {@html item.content.replace(/(<p[^>]+?>|<p>|<\/p>)/img, '').replace(/(<b[^>]+?>|<b>|<\/b>)/img, '').replace(/(<span[^>]+?>|<span>|<\/span>)/img, '').substring(0, 100)}
+                  {:else}
+                    {item.tag}
+                  {/if}
+                </div>
+              </div>
+              <div class="card-buttom">
+                <div class="card-date">
+                  {item.date}
+                </div>
+              </div>
+            </div>
           {/if}
-          
-        </table>
--->        
-        
-        <hr>
-        <div class="clearfix">
-          <div id="b_dv" style="text-align: center">
-            {#each paging as item}
-              <input type="button" value="{item.no}" onclick="location.href='/board/{divi}/{item.no}'">&nbsp;
-            {/each}
-          </div>
-        </div>
+        {/each}
       </div>
-      
+    </div>
+
+    <div class="clearfix">
+      <div id="b_dv" style="text-align: center">
+        {#each paging as item}
+          <input class="custom-btn" type="button" value="{item.no}" on:click={change(item.no-1)}>&nbsp;
+        {/each}
+      </div>
     </div>
