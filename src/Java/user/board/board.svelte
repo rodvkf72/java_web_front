@@ -40,6 +40,7 @@
     });
 
     await result;
+    document.getElementById('loading-bar').remove();
     resultList = list.list;
     max = list.max[0].no;
       
@@ -85,7 +86,7 @@
   .card {
     line-height: 1.6;
     font-size: 0.8em;
-    background-color: rgba(0, 0, 0, 0.01);
+    background-color: rgba(0, 0, 0, 0);
     box-shadow: 0 0 0 1px #e1e1e1 inset;
     border-radius: 10px;
     cursor: pointer;
@@ -106,6 +107,7 @@
 
   .card-date {
     font-size: 0.8em;
+    margin-bottom: 3%;
   }
 </style>
 
@@ -142,6 +144,10 @@
   <!-- Main Content -->
   <div style="width: 80%; text-align: center; margin: auto;">
     <div class="card-parent">
+      <div class="loading-container" id="loading-bar">
+        <div class="loading"></div>
+        <div id="loading-text">loading</div>
+      </div>
         <!-- if else 문에서 공통된 부분을 빼서 처리하려고 해도 <div>와 같은 HTML 태그가 종료되지 않으면 if else 문에서 에러가 남..-->
         {#each resultList as item, i}
           {#if i < 12}

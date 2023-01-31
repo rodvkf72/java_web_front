@@ -100,7 +100,7 @@
   .card {
     line-height: 1.6;
     font-size: 0.8em;
-    background-color: rgba(0, 0, 0, 0.01);
+    background-color: rgba(0, 0, 0, 0);
     box-shadow: 0 0 0 1px #e1e1e1 inset;
     border-radius: 10px;
     cursor: pointer;
@@ -120,6 +120,7 @@
   }
 
   .card-date {
+    margin-bottom: 3%;
     font-size: 0.8em;
   }
 </style>

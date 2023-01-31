@@ -1,3 +1,13 @@
+<script>
+  import { tokenCheck } from "../../../../public/Java/js/blog/token-check";
+
+  let result =  tokenCheck.hasToken();
+  async function load() {
+      return await result;
+  }
+</script>
+
+{#await load()}
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" sytle="background-color:black">
     <div class="container">
       <a class="navbar-brand" href="/Manage/main">Kim's Log - Manager</a>
@@ -23,3 +33,4 @@
       </div>
     </div>
   </nav>
+{/await}

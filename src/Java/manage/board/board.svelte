@@ -1,8 +1,11 @@
 <script>
     import { beforeUpdate, onMount } from "svelte";
     import { writable } from "svelte/store";
+    import { tokenCheck } from "../../../../public/Java/js/blog/token-check";
 
-    const storedToken = localStorage.getItem("tokenStorage");
+    const accessToken = sessionStorage.getItem("accessToken");
+    const refreshToken = sessionStorage.getItem("refreshToken");
+    const id = sessionStorage.getItem("id");
 
     let resultList = [];
     let resultContent = [];
@@ -11,14 +14,22 @@
     let test = [];
 
     onMount(async() => {
+        /*
+        if (!tokenCheck.hasToken()) {
+            window.location.href="http://127.0.0.1:4000/Manage/login";
+        }
+        */
+       
         var test = document.location.href.split("/");
         let list = [];
-        let result = fetch('http://localhost:8080/Manage/' + division,
+        let result = fetch('http://127.0.0.1:8080/Manage/' + division,
             {
                 method: 'POST',
                 headers: {
                     "Content-Type" : "application/json",
-                    "Authorization" : storedToken,
+                    "Access" : accessToken,
+                    "Refresh" : refreshToken,
+                    "id" : id,
                 }
             }
         ).then((res) => {
@@ -27,9 +38,9 @@
             list = json;
             console.log(list);
             if (list.result == 'empty') {
-                window.location.href="http://localhost:4000/Manage/login";    
+                window.location.href="http://127.0.0.1:4000/Manage/login";    
             } else if (list.result == 'block') {
-                window.location.href="http://localhost:4000/main";
+                window.location.href="http://127.0.0.1:4000/main";
             }
         });
     

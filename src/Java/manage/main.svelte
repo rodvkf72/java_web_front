@@ -1,14 +1,19 @@
 <script>
     import { onMount } from "svelte";
+    import { tokenCheck } from "../../../public/Java/js/blog/token-check";
 
-    const storedToken = localStorage.getItem("tokenStorage");
-
-    onMount(async() => {
-        if (storedToken == "" || storedToken == null) {
-            window.location.href="http://localhost:4000/Manage/login";
+    let result =  tokenCheck.hasToken();
+    async function load() {
+        await result;
+        if (!await result) {
+            console.log("tt");
+            window.location.href="http://127.0.0.1:4000/Manage/login";
         }
-    })
+    }
+    load();
 </script>
+
+{#await load}
 <header class="masthead" style="background-image: url('/Java/image/home-bg.jpg')">
     <div class="overlay"></div>
     <div class="container">
@@ -23,3 +28,4 @@
         </div>
     </div>
 </header>
+{/await}

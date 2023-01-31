@@ -2,7 +2,9 @@
     import { quill } from "svelte-quill";
     import { beforeUpdate, onMount, tick } from "svelte";
 
-    const storedToken = localStorage.getItem("tokenStorage");
+    const accessToken = sessionStorage.getItem("accessToken");
+    const refreshToken = sessionStorage.getItem("refreshToken");
+    const id = sessionStorage.getItem("id");
     
     var imageHandler1 = () => {
       var input = document.createElement('input');
@@ -20,7 +22,9 @@
         let result = fetch('http://localhost:8080/Manage/fileUpload', {
           method: 'POST',
           headers: {
-              "Authorization" : storedToken,
+              "Access" : accessToken,
+              "Refresh" : refreshToken,
+              "id" : id,
             },
           body: formData,
           }
@@ -30,7 +34,7 @@
           var uuid = json.uuid;
           var fileName = json.fileName;
           //var path = json.path;
-          var path = "http://localhost:8080/file/"
+          var path = "http://rodvkf72.com:8081/file/"
           var imgNode = document.createElement("img");
           imgNode.src = path + uuid + "_" + fileName;
           imgNode.style.cssText = "width: 100%; height: 100%;";
@@ -74,7 +78,7 @@
     let resultTag;
 
     if (no == 'insert') {
-      console.log("tt");
+      
     } else {
       onMount(async() => {
         let list = [];
@@ -83,7 +87,9 @@
             method: 'POST',
             headers: {
               "Content-Type" : "application/json",
-              "Authorization" : storedToken,
+              "Access" : accessToken,
+              "Refresh" : refreshToken,
+              "id" : id,
             }
           }
         ).then((res) => {
@@ -147,7 +153,9 @@
             method: 'POST',
             headers: {
               "Content-Type" : "application/json",
-              "Authorization" : storedToken,
+              "Access" : accessToken,
+              "Refresh" : refreshToken,
+              "id" : id,
             },
             body: JSON.stringify(obj)
           }
@@ -180,7 +188,9 @@
           method: 'PATCH',
           headers: {
             "Content-Type" : "application/json",
-            "Authorization" : storedToken,
+            "Access" : accessToken,
+            "Refresh" : refreshToken,
+            "id" : id,
           },
           body: JSON.stringify(obj)
         }
@@ -214,7 +224,9 @@
         method: 'DELETE',
         headers: {
           "Content-Type" : "application/json",
-          "Authorization" : storedToken,
+          "Access" : accessToken,
+          "Refresh" : refreshToken,
+          "id" : id,
         },
         body: JSON.stringify(obj)
       }

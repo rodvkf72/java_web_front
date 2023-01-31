@@ -46,6 +46,17 @@
     font-size: 17px;
     text-align: center;
   }
+  .short > div {
+    width: 45%;
+    justify-content: center;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .area {
+    padding: 2%;
+    border-radius: 10px;
+    box-shadow: 0 0 0 1px #e1e1e1 inset;
+  }
 </style>
   
 <header class="masthead" style="background-image: url('/Java/image/post-bg.jpg')">
@@ -84,60 +95,69 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto view sub">
-        <div class="sub">
-          <b>알림</b>
-          <hr style="width: 15%;">
-        </div>
-        <div class="short">
-          {resultList.notification}
-        </div>
-        <br><br><br>
-        <div class="sub">
-          <b>프로젝트 소개</b>
-          <hr style="width: 15%;">
-        </div>
-        <div class="long">
-          {@html resultList.info}
-        </div>
-        <br><br><br>
-        <div class="sub">
-          <b>참여인원</b>
-          <hr style="width: 15%;">
-        </div>
-        <div class="short">
-          {@html resultList.people}
-        </div>
-        <br><br><br>
-        <div class="sub">
-          <b>기술스택</b>
-          <hr style="width: 15%;">
-        </div>
-        <div class="short">
-          {@html resultList.techStack}
-        </div>
-        <br><br><br>
-        <div class="sub">
-          <b>작업내용</b>
-          <hr style="width: 15%;">
-        </div>
-        <div class="long">
-          {@html resultList.myJob}
+        <div class="area">
+          <div class="sub">
+            <b>알림</b>
+            <hr style="width: 15%;">
+          </div>
+          <div class="short">
+            {resultList.notification}
+          </div>
         </div>
         <br>
-        <div class="sub">
-          <b>문제점</b>
-          <hr style="width: 15%;">
+        <div class="area">
+          <div class="sub">
+            <b>참여인원 / 기술스택</b>
+            <hr style="width: 15%;">
+          </div>
+          <div class="short">
+            <div>
+              {@html resultList.people}
+            </div>
+            <div>
+              {@html resultList.techStack}
+            </div>
+          </div>
         </div>
-        <div class="long">
-          {@html resultList.problem}
+        <br>
+        <div class="area">
+          <div class="sub">
+            <b>프로젝트 소개</b>
+            <hr style="width: 15%;">
+          </div>
+          <div class="long">
+            {@html resultList.info}
+          </div>
         </div>
-        <br><br><br>
-        <div class="sub">
-          <b>참조 사이트</b>
-          <hr style="width: 15%;">
+        <br>
+        <div class="area">
+          <div class="sub">
+            <b>작업내용</b>
+            <hr style="width: 15%;">
+          </div>
+          <div class="long">
+            {@html resultList.myJob}
+          </div>
         </div>
-        <div class="short">
-          <a href="{resultList.reference}">{resultList.reference}</a>
+        <br>
+        <div class="area">
+          <div class="sub">
+            <b>문제점</b>
+            <hr style="width: 15%;">
+          </div>
+          <div class="long">
+            {@html resultList.problem}
+          </div>
+        </div>
+        <br>
+        <div class="area">
+          <div class="sub">
+            <b>참조 사이트</b>
+            <hr style="width: 15%;">
+          </div>
+          <div class="short">
+            <a href="{resultList.reference}">{resultList.reference}</a>
+          </div>
         </div>
         <br>
       </div>

@@ -2,7 +2,9 @@
     import { beforeUpdate, onMount } from "svelte";
     import { writable } from "svelte/store";
 
-    const storedToken = localStorage.getItem("tokenStorage");
+    const accessToken = sessionStorage.getItem("accessToken");
+    const refreshToken = sessionStorage.getItem("refreshToken");
+    const id = sessionStorage.getItem("id");
 
     let resultList = [];
     let resultContent = [];
@@ -18,7 +20,9 @@
                 method: 'POST',
                 headers: {
                     "Content-Type" : "application/json",
-                    "Authorization" : storedToken,
+                    "Access" : accessToken,
+                    "Refresh" : refreshToken,
+                    "id" : id,
                 }
             }
         ).then((res) => {

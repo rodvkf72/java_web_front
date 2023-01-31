@@ -3,7 +3,9 @@
     import { beforeUpdate, onMount, tick } from "svelte";
 import { element } from "svelte/internal";
 
-    const storedToken = localStorage.getItem("tokenStorage");
+    const accessToken = sessionStorage.getItem("accessToken");
+    const refreshToken = sessionStorage.getItem("refreshToken");
+    const id = sessionStorage.getItem("id");
     
     var imageHandler1 = () => {
       var input = document.createElement('input');
@@ -20,7 +22,9 @@ import { element } from "svelte/internal";
         let result = fetch('http://localhost:8080/Manage/fileUpload', {
           method: 'POST',
           headers: {
-              "Authorization" : storedToken,
+            "Access" : accessToken,
+            "Refresh" : refreshToken,
+            "id" : id,
             },
           body: formData,
           }
@@ -91,7 +95,9 @@ import { element } from "svelte/internal";
             method: 'POST',
             headers: {
               "Content-Type" : "application/json",
-              "Authorization" : storedToken,
+              "Access" : accessToken,
+              "Refresh" : refreshToken,
+              "id" : id,
             }
           }
         ).then((res) => {
@@ -123,7 +129,7 @@ import { element } from "svelte/internal";
           resultTechStack = resultList[0].techStack;
           resultMyJob = resultList[0].myJob;
           resultNotification = resultList[0].notification;
-          resultReference = resultList[0].notification;
+          resultReference = resultList[0].reference;
           resultCapture = resultList[0].capture;
           resultProblem = resultList[0].problem;
           resultDivision = resultList[0].division;
@@ -187,7 +193,9 @@ import { element } from "svelte/internal";
             method: 'POST',
             headers: {
               "Content-Type" : "application/json",
-              "Authorization" : storedToken,
+              "Access" : accessToken,
+              "Refresh" : refreshToken,
+              "id" : id,
             },
             body: JSON.stringify(obj)
           }
@@ -224,7 +232,9 @@ import { element } from "svelte/internal";
           method: 'PATCH',
           headers: {
             "Content-Type" : "application/json",
-            "Authorization" : storedToken,
+            "Access" : accessToken,
+            "Refresh" : refreshToken,
+            "id" : id,
           },
           body: JSON.stringify(obj)
         }
@@ -252,7 +262,9 @@ import { element } from "svelte/internal";
         method: 'DELETE',
         headers: {
           "Content-Type" : "application/json",
-          "Authorization" : storedToken,
+          "Access" : accessToken,
+          "Refresh" : refreshToken,
+          "id" : id,
         },
         body: JSON.stringify(obj)
       }
@@ -304,15 +316,23 @@ import { element } from "svelte/internal";
 
 <div class="area">
     <form id="form" enctype="multipart/form-data" method="post" action = "http://localhost:18080/Manager/{division}/action/{no}" on:submit|preventDefault={handleSubmit}>
+        <b>제목</b>
         <input type="text" id="title" placeholder="Title" bind:value={resultTitle}> 
         <br><br>
-        <textarea id="info" placeholder="Simple Info" rows="7" cols="40" wrap="hard" bind:value={resultInfo}></textarea>
+        <b>알림</b>
+        <input type="text" id="notification" placeholder="Notification" bind:value={resultNotification}>
         <br/><br/>
+        <b>개발인원</b>
         <input type="text" id="people" placeholder="Partification People" bind:value={resultPeople}>
         <br/><br/>
-        <input type="text" id="techStack" placeholder="Tech Stack" bind:value={resultTechStack}>
+        <b>기술스택</b>
+        <textarea id="techStack" placeholder="Tech Stack" rows="7" cols="40" wrap="hard" bind:value={resultTechStack}></textarea>
+        <!-- <input type="text" id="techStack" placeholder="Tech Stack" bind:value={resultTechStack}> -->
         <br/><br/>
-        작업내용
+        <b>프로젝트 소개</b>
+        <textarea id="info" placeholder="Simple Info" rows="7" cols="40" wrap="hard" bind:value={resultInfo}></textarea>
+        <br/><br/>
+        <b>작업내용</b>
         {#if no == 'insert'}
           <textarea id="contentArea" style="display:none"></textarea>
         {:else}
@@ -322,7 +342,7 @@ import { element } from "svelte/internal";
             
         </div>
         <br/><br/>
-        문제점
+        <b>문제점</b>
         {#if no == 'insert'}
           <textarea id="contentArea2" style="display:none"></textarea>
         {:else}
@@ -332,16 +352,19 @@ import { element } from "svelte/internal";
             
         </div>
         <br/><br/>
-        <input type="text" id="notification" placeholder="Notification" bind:value={resultNotification}>
-        <br/><br/>
+        <b>참조주소</b>
         <input type="text" id="reference" placeholder="Reference" bind:value={resultReference}>
         <br/><br/>
+        <b>캡처</b>
         <input type="text" id="capture" placeholder="Capture" bind:value={resultCapture}>
         <br/><br/>
+        <b>기간</b>
+        <br>
         <input type="text" id="startDate" placeholder="Start Date" bind:value={resultStartDate}> ~ <input type="text" id="endDate" placeholder="End Date" bind:value={resultEndDate}>
         <br/><br/>
         
-        분류
+        <b>분류</b>
+        <br>
         <select name="division" id="division" bind:value={resultDivision}>
           <option value="company">회사 프로젝트</option>
           <option value="personal">개인 프로젝트</option>

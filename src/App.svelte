@@ -19,12 +19,29 @@
 
     import ManageHead from './Java/manage/subpage/head.svelte';
     import ManageNav from './Java/manage/subpage/nav.svelte';
+    import ManageFooter from './Java/manage/subpage/footer.svelte';
     import ManageMain from './Java/manage/main.svelte';
     import ManageList from './Java/manage/board/board.svelte';
     import ManageDetail from './Java/manage/board/boardDetail.svelte';
     import ManageProjectList from './Java/manage/project/project.svelte';
     import ManageProjectDetail from './Java/manage/project/projectDetail.svelte';
     import ManageLogin from './Java/manage/login/login.svelte';
+
+    let load = false;
+
+    onMount(() => {
+      let accessToken = sessionStorage.getItem("refreshToken");
+      let refreshToken = sessionStorage.getItem("refreshToken");
+      let id = sessionStorage.getItem("id");
+
+      if (accessToken == "" || accessToken == null ||
+          refreshToken == "" || refreshToken == null ||
+          id == "" || id == null) {
+          load = true;
+      } else {
+          load = false;
+      }
+    })
 </script>
 
 <style>
@@ -56,25 +73,17 @@
 <Route path="/Manage/*">
     <ManageHead/>
     <ManageNav/>
-<!--
-    <Route path="/projects" let:meta>
-      <ManageProjectList/>
-    </Route>
-    <Route path="/project/:no" let:meta>
-      <ManageProjectDetail page={meta.params.page}/>
-    </Route>
--->
 
     <Route path="/:division/*" let:meta>
       <Route path="/" let:meta>
         {#if meta.params.division == 'projects'}
-            <ManageProjectList division={meta.params.division}/>  
+          <ManageProjectList division={meta.params.division}/>  
         {:else if meta.params.division == 'noticeboards'}
-            <ManageList division={meta.params.division}/>
+          <ManageList division={meta.params.division}/>
         {:else if meta.params.division == 'baekjoons'}
-            <ManageList division={meta.params.division}/>
+          <ManageList division={meta.params.division}/>
         {:else if meta.params.division == 'programmers'}
-            <ManageList division={meta.params.division}/>
+          <ManageList division={meta.params.division}/>
         {/if}
       </Route>
       <Route path="/:no" let:meta>
@@ -86,69 +95,13 @@
       </Route>
     </Route>
 
-    <!--
-    <Route path="/boards">
-      <ManageList/>
-    </Route>
-    <Route path="/board/:no" let:meta>
-      <ManageDetail no={meta.params.no}/>
-    </Route>
-    -->
-
-    <!--
-    <Route path="/noticeboards/:page" let:meta>
-      <ManageList page={meta.params.page}/>
-    </Route>
-    <Route path="/programmerss/:page" let:meta>
-      <ManageList page={meta.params.page}/>
-    </Route>
-    <Route path="/baekjoons/:page" let:meta>
-      <ManageList page={meta.params.page}/>
-    </Route>
-
-    <Route path="/noticeboard/:page" let:meta>
-      <ManageDetail page={meta.params.page}/>
-    </Route>
-    <Route path="/baekjoon/:page" let:meta>
-      <ManageDetail page={meta.params.page}/>
-    </Route>
-    <Route path="/programmers/:page" let:meta>
-      <ManageDetail page={meta.params.page}/>
-    </Route>
-    -->
-
-    <!--
-    <Route path="/:division/:page" let:meta>
-      <ManageList page={meta.params.page}, division={meta.params.division}/>
-    </Route>
-    <Route path="/board/**">
-      <ManageDetail/>
-    </Route>
-    -->
-    <!--
-    <Route path="/noticeboard/update/:no" let:meta>
-      <ManageDetail no={meta.params.no}/>
-    </Route>
-    <Route path="/baekjoon/:page" let:meta>
-      <ManageList page={meta.params.page}/>
-    </Route>
-    <Route path="/baekjoon/update/:no" let:meta>
-      <ManageDetail no={meta.params.no}/>
-    </Route>
-    <Route path="/programmers/:page" let:meta>
-      <ManageList no={meta.params.page}/>
-    </Route>
-    <Route path="/programmers/update/:no" let:meta>
-      <ManageDetail no={meta.params.no}/>
-    </Route>
-    -->
     <Route path="/main">
       <ManageMain/>
     </Route>
     <Route path="/login">
       <ManageLogin/>
     </Route>
-    <Footer/>
+    <ManageFooter/>
 </Route>
 
 <Route path="/info">
