@@ -10,6 +10,16 @@ import { onMount } from "svelte";
     */
 </script>
 
+<style>
+    :global(.fill) {
+        object-fit: fill;
+    }
+
+    :global(.cover) {
+        object-fit: cover;
+    }
+</style>
+
 <header class="masthead" style="background-image: url('/resources/image/home-bg.jpg')">
     <div class="overlay"></div>
     <div class="container">
@@ -77,16 +87,16 @@ import { onMount } from "svelte";
         </div>
         <div class="col-lg-6 col-md-6 mb-6 center">
             <br>
-            <div style="width: 100%; height: 30%; display:table-cell; vertical-align:middle;">
-                <img style="height: 100%;" src="https://github-readme-stats.vercel.app/api/pin/?username=rodvkf72&repo=rodvkf72" alt="github_repo_JavaWeb"/>
+            <div style="width: 75%; margin: auto;">
+                <img src="https://github-readme-stats.vercel.app/api/pin/?username=rodvkf72&repo=rodvkf72" alt="github_repo_JavaWeb" class="cover"/>
             </div>
             <br><br>
-            <div style="width: 100%; height: 30%; display:table-cell; vertical-align:middle;">
-                <img style="height: 100%;" src="https://github-readme-stats.vercel.app/api?username=rodvkf72&show_icons=true&theme=dark" alt="github_starts"/>
+            <div style="width: 75%; margin: auto;">
+                <img src="https://github-readme-stats.vercel.app/api?username=rodvkf72&show_icons=true&theme=dark" alt="github_starts" class="cover"/>
             </div>
             <br><br>
-            <div style="width: 100%; height: 30%; display:table-cell; vertical-align:middle;">
-                <img style="width: 100%;" src="http://mazassumnida.wtf/api/v2/generate_badge?boj=rodvkf72" alt="baekjoon_tier"/>
+            <div style="width: 75%; margin: auto;">
+                <img src="http://mazassumnida.wtf/api/v2/generate_badge?boj=rodvkf72" alt="baekjoon_tier" class="cover"/>
             </div>
         </div>
     </div>
