@@ -36,7 +36,7 @@ import { onMount } from "svelte";
 </header>
 
 <!-- Main Content -->
-<div class="cover hanna-font">
+<div class="cover">
     <div class="row">
         <div class="col-lg-6 col-md-6 mb-6 center">
             <div>
@@ -52,7 +52,7 @@ import { onMount } from "svelte";
                 </p>
                 <hr width="20%">
                 <p style="margin:70px 0px 0px 0px; !important">
-                    Languages & Databases
+                    <b>Languages & Databases</b>
                 </p>
                 <hr width="20%">
                 <p>
@@ -68,7 +68,7 @@ import { onMount } from "svelte";
                     <img src="https://img.shields.io/badge/MSSQL-F80000.svg?&style=for-the-badge&logo=microsoftsqlserver&logoColor=white" alt="MSSQL" style="width: 60px; height: 30px;">
                 </p>
                 <p style="margin:70px 0px 0px 0px; !important">
-                    Tools
+                    <b>Tools</b>
                 </p>
                 <hr width="20%">
                 <p>
