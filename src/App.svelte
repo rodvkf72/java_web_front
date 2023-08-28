@@ -17,6 +17,12 @@
     import ProjectDetail from "./Java/user/project/projectDetail.svelte";
     import MyInfo from './Java/user/info/myinfo.svelte';
 
+    import NoticeboardList from './Java/user/noticeboard/list.svelte';
+    import NoticeboardView from './Java/user/noticeboard/view.svelte';
+    import JudgeSelect from './Java/user/judge/select.svelte';
+    import JudgeList from './Java/user/judge/list.svelte';
+    import JudgeView from './Java/user/judge/view.svelte';
+
     import ManageHead from './Java/manage/subpage/head.svelte';
     import ManageNav from './Java/manage/subpage/nav.svelte';
     import ManageMain from './Java/manage/main.svelte';
@@ -69,7 +75,7 @@
       <Route path="/" let:meta>
         {#if meta.params.division == 'projects'}
             <ManageProjectList division={meta.params.division}/>  
-        {:else if meta.params.division == 'noticeboards'}
+        {:else if meta.params.division == 'noticeboard'}
             <ManageList division={meta.params.division}/>
         {:else if meta.params.division == 'baekjoons'}
             <ManageList division={meta.params.division}/>
@@ -200,42 +206,41 @@
   {/if}
 </Route>
 
-<Route path="/board/*">
+<Route path="/judge/*">
   <Head/>
   <Nav/>
-  <Route path="/">
-    <Coding/>
+  <Route path="/select/">
+    <JudgeSelect/>
   </Route>
-  <Route path="/:divi/*" let:meta>
-    <Route path="/" let:meta>
-      <Board divi={meta.params.divi}/>
-    </Route>
-    <Route path="/:no" let:meta>
-      <BoardDetail divi={meta.params.divi} no={meta.params.no}/>
-      <Utterances
-        repo="rodvkf72/Utterances"
-        theme="github-light"
-        issueTerm="url"
-      />
-      <hr>
-    </Route>
+  <Route path="/:divi/list/:page" let:meta>
+    <JudgeList divi={meta.params.divi} page={meta.params.page}/>
   </Route>
+  <Route path="/:divi/view/:no" let:meta>
+    <JudgeView divi={meta.params.divi} no={meta.params.no}/>
+    <Utterances
+      repo="rodvkf72/Utterances"
+      theme="github-light"
+      issueTerm="url"
+    />
+    <hr>
+  </Route>
+  <Footer/>
+</Route>
 
-  <!--
-  <Route path="/:divi/*" let:meta>
-    <Route path="/:page" let:meta>
-      <Board divi={meta.params.divi} page={meta.params.page}/>
-    </Route>
-    <Route path="/view/:no" let:meta>
-      <BoardDetail divi={meta.params.divi} no={meta.params.no}/>
-      <Utterances
-        repo="rodvkf72/Utterances"
-        theme="github-light"
-        issueTerm="url"
-      />
-      <hr>
-    </Route>
+<Route path="/noticeboard/*">
+  <Head/>
+  <Nav/>
+  <Route path="/list/:page" let:meta>
+    <NoticeboardList page={meta.params.page}/>
   </Route>
-  -->
+  <Route path="/view/:no" let:meta>
+    <NoticeboardView no={meta.params.no}/>
+    <Utterances
+      repo="rodvkf72/Utterances"
+      theme="github-light"
+      issueTerm="url"
+    />
+    <hr>
+  </Route>
   <Footer/>
 </Route>

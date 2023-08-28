@@ -14,7 +14,7 @@
             <a class="nav-link" href="/info">INFO</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="javascript:location.href='/board/noticeboards'">NoticeBoard</a>
+            <a class="nav-link" href="javascript:location.href='/noticeboard/list/1'">NoticeBoard</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/projects">Project</a>
@@ -32,7 +32,7 @@
             </script>
             <a class="nav-link" href="javascript:goPost();">Online Judge</a>
             -->
-            <a class="nav-link" href="/board">Online Judge</a>
+            <a class="nav-link" href="/judge/select">Online Judge</a>
           </li>
         </ul>
       </div>
