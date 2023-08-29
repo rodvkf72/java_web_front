@@ -1,17 +1,41 @@
 <script>
   import {onMount} from 'svelte';
-  export let page;
   export let divi;
+  let page = 1;
 
-  let max;
-  let resultList = [];
-  let paging = [];
+  $: items = fetch(`http://localhost:8080/onlinejudge/${divi}/list/${page}`,
+    {
+      method: 'POST',
+      headers: {
+        "Content-Type" : "application/json",
+      }
+    }
+  ).then(
+    response => response.json()
+  );
 
+  function firstPage() {
+    page = 1;
+  }
+
+  function prevPage() {
+    page = page - 1;
+  }
+
+  function nextpage() {
+    page = page + 1;
+  }
+
+  function jump(item) {
+    page = item.no;
+  }
+
+  /*
   onMount(async() => {
     resultList = [];
     paging = [];
     let list = [];
-    let result = fetch('http://localhost:8080/noticeboard/list/' + page,
+    let result = fetch('http://localhost:8080/' + divi + '/' + page,
       {
         method: 'POST',
         headers: {
@@ -36,6 +60,7 @@
 
       paging = empty; //왜인지 모르겠으나 empty 변수를 지정하지 않고 paging 변수에 데이터를 push 하는 경우 프론트에서 출력이 안됨..
   })
+  */
 </script>
 
 <style>
@@ -147,18 +172,12 @@
                 백 준
               {:else if divi == 'programmers'}
                 프로그래머스
-              {:else if divi == 'noticeboard'}
-                게 시 판
               {:else}
-
+                잘못된 페이지
               {/if}
             </h2>
             <br>
-            {#if divi == 'noticeboard'}
-            <span class="subheading">잡동사니 저장소</span>
-            {:else}
-              <span class="subheading">문 제 풀 이</span>
-            {/if}
+            <span class="subheading">문 제 풀 이</span>
           </div>
         </div>
       </div>
@@ -170,25 +189,12 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <table width="100%;" id="tbl">
-          {#if divi == 'noticeboard'}
-            {#each resultList as item}
-              <hr>
-              <div class="post-preview" onclick="location.href='/noticeboard/view/{item.pk}'" style="cursor: pointer;">
-                <div class="image-box">
-                  <img src="https://blog.jinbo.net/attach/615/200937431.jpg" style="width: 100%; height: 100%;" alt="thumb"/>
-                </div>
-                <div class="content-box">
-                  <div class="post-title">
-                    <p>{item.title}</p>
-                  </div>
-                  <div class="post-writer">
-                    <!--<p>Posted by {item.writer} on {item.date}</p>-->
-                    <p>{item.date}</p>
-                  </div>
-                </div>
-              </div>
-            {/each}
-          {:else}
+          {#await items}
+            <div class="loading-container" id="loading-bar">
+              <div class="loading"></div>
+              <div id="loading-text">loading</div>
+            </div>
+          {:then items}
             <tr style="background-color: rgb(230, 230, 230); text-align: center;">
               <th>
                 <b>번 호</b>
@@ -197,17 +203,15 @@
                 <b>문 제</b>
               </th>
             </tr>
-            {#each resultList as item}
+            {#each items as item, index}
               <tbody style="text-align: center;">
                 <td><hr>&nbsp;<br>{item.no}<br>&nbsp;</td>
-                <td><hr>&nbsp;<br><a href="/noticeboard/view/{item.pk}">{item.title}</a><br>&nbsp;</td>
+                <td><hr>&nbsp;<br><a href="/onlinejudge/{divi}/{item.pk}">{item.title}</a><br>&nbsp;</td>
               </tbody>
             {/each}
-          {/if}
-          <div class="loading-container" id="loading-bar">
-            <div class="loading"></div>
-            <div id="loading-text">loading</div>
-          </div>
+          {:catch error}
+            <p>{error}</p>
+          {/await}
         </table>
 
 
@@ -216,32 +220,37 @@
         <br>
         <div class="clearfix page_wrap">
           <div id="b_dv" class="page_nation" style="text-align: center">
+            {#await items}
+              <p></p>
+            {:then items}
+              <!-- 이전 페이지 커서 -->
+              <a class="arrow pprev" href="#null" onclick={firstPage}></a>
+              {#if page <= 1}
+                <a class="arrow prev" href="#null" onclick={firstPage}></a>
+              {:else}
+                <a class="arrow prev" href="#null" onclick={prevPage}></a>
+              {/if}
 
-            <a class="arrow pprev" href="#" onclick="location.href='/noticeboard/list/1'"></a>
-            {#if page <= 1}
-                <a class="arrow prev" href="#" onclick="location.href='/noticeboard/list/1'"></a>
-            {:else}
-                <a class="arrow prev" href="#" onclick="location.href='/noticeboard/list/{Number(page)-Number(1)}'"></a>
-            {/if}
-
-            {#each paging as item}
+              <!-- 숫자 버튼 -->
+              {#each items as item, index}
                 {#if page == item.no}
-                        <a class="active" href="#" onclick="location.href='/noticeboard/list/{item.no}'">{item.no}</a>
+                  <a class="active" href="#null" onclick={jump({item})}></a>
                 {:else}
-                        <a href="#" onclick="location.href='/noticeboard/list/{item.no}'">{item.no}</a>
+                  <a href="#null" onclick={jump({item})}></a>
                 {/if}
-<!--
-              <input type="button" value="{item.no}" onclick="location.href='/noticeboard/list/{divi}/{item.no}'">&nbsp;
-              -->
-            {/each}
+              {/each}
 
-            {#if page >= Math.ceil(max / 10)}
-                <a class="arrow next" href="#" onclick="location.href='/noticeboard/list/{Math.ceil(max / 10)}'"></a>
-            {:else}
-                <a class="arrow next" href="#" onclick="location.href='/noticeboard/list/{Number(page)+Number(1)}'"></a>
-            {/if}
-            <a class="arrow nnext" href="#" onclick="location.href='/noticeboard/list/{Math.ceil(max / 10)}'"></a>
+              <!-- 다음 페이지 커서 -->
+              {#if page >= Math.ceil(items.max / 10)}
+                <a class="arrow next" href="#null" onclick={jump(Math.ceil(items.max / 10))}></a>
+              {:else}
+                <a class="arrow next" href="#null" onclick={nextPage}></a>
+              {/if}
+              <a class="arrow nnext" href="#null" onclick={jump(Math.ceil(items.max / 10))}></a>
 
+            {:catch error}
+              <p></p>
+            {/await}
           </div>
         </div>
       </div>
