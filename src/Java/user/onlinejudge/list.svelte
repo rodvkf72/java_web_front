@@ -22,7 +22,7 @@
     page = page - 1;
   }
 
-  function nextpage() {
+  function nextPage() {
     page = page + 1;
   }
 
@@ -30,87 +30,12 @@
     page = item.no;
   }
 
-  /*
-  onMount(async() => {
-    resultList = [];
-    paging = [];
-    let list = [];
-    let result = fetch('http://localhost:8080/' + divi + '/' + page,
-      {
-        method: 'POST',
-        headers: {
-          "Content-Type" : "application/json",
-        }
-      }
-    ).then((res) => {
-      return res.json();
-    }).then((json) => {
-      list = json;
-    });
-
-    await result;
-    document.getElementById('loading-bar').remove();
-    resultList = list.list;
-    max = list.max[0].no;
-
-      let empty = [];
-      for (var i = 1; i <= Math.ceil(max / 10); i++) {
-        empty.push({no : String(i)});
-      }
-
-      paging = empty; //왜인지 모르겠으나 empty 변수를 지정하지 않고 paging 변수에 데이터를 push 하는 경우 프론트에서 출력이 안됨..
-  })
-  */
 </script>
 
 <style>
   .page_wrap {
         text-align:center;
         font-size:0;
-  }
-  .page_nation {
-    display:inline-block;
-  }
-  .page_nation .none {
-    display:none;
-  }
-  .page_nation a {
-    display:block;
-    margin:0 3px;
-    float:left;
-    border:1px solid #e6e6e6;
-    width:28px;
-    height:28px;
-    line-height:28px;
-    text-align:center;
-    background-color:#fff;
-    font-size:13px;
-    color:#999999;
-    text-decoration:none;
-  }
-  .page_nation .arrow {
-    border:1px solid #ccc;
-  }
-  .page_nation .pprev {
-    background:#f8f8f8 url('/Java/image/page_pprev.png') no-repeat center center;
-    margin-left:0;
-  }
-  .page_nation .prev {
-    background:#f8f8f8 url('/Java/image/page_prev.png') no-repeat center center;
-    margin-right:7px;
-  }
-  .page_nation .next {
-    background:#f8f8f8 url('/Java/image/page_next.png') no-repeat center center;
-    margin-left:7px;
-  }
-  .page_nation .nnext {
-    background:#f8f8f8 url('/Java/image/page_nnext.png') no-repeat center center;
-    margin-right:0;
-  }
-  .page_nation a.active {
-    background-color:#42454c;
-    color:#fff;
-    border:1px solid #42454c;
   }
 
   .image-box {

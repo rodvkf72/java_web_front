@@ -5,8 +5,6 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <script src="/Java/vendor/comming/jquery/jquery.min.js"></script>
-
   <!-- Bootstrap core CSS -->
   <link href="/Java/vendor/blog/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -23,8 +21,12 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" rel="stylesheet"/>
 
+  <!-- jQuery -->
+  <!-- <script src="/Java/vendor/comming/jquery/jquery.min.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- Bootstrap core JavaScript -->
-  <script src="/Java/vendor/comming/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+  <!-- <script src="/Java/vendor/comming/bootstrap/js/bootstrap.bundle.min.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 

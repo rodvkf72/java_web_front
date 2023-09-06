@@ -10,9 +10,11 @@
         "Content-Type" : "application/json",
       }
     }
-  ).then(
-    response => response.json()
-  );
+  ).then((res) => {
+    return res.json();
+  }).then((result) => {
+    return result;
+  })
 </script>
 
 <style>
@@ -30,12 +32,10 @@
           {#await items}
             <p>로딩중...</p>
           {:then items}
-            {#each items as item, index}
-              <h2>{item.title}</h2>
-              <br>
-              <span class="meta">Posted by {item.writer} on {item.date}</span>
-              <br>
-            {/each}
+            <h2>{items.view.title}</h2>
+            <br>
+            <span class="meta">Posted by {items.view.writer} on {items.view.date}</span>
+            <br>
           {:catch error}
             <p>{error}</p>
           {/await}
@@ -53,76 +53,73 @@
       <div id="loading-text">loading</div>
     </div>
   {:then items}
-    {#each items as item, index}
-    
-      <!-- 내용 탭 -->
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto view">
-            {@html item.content}
-          </div>
+    <!-- 내용 탭 -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto view">
+          {@html items.view.content}
         </div>
-        <br>
-        <hr>
       </div>
+      <br>
+      <hr>
+    </div>
 
-      <!-- 인기글 탭 -->
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <div class="slider-container">
-              <div class="slider">
-                <div class="slides">
-                  {#each item.popularList as popular, index}
-                    {#if index < 1}
-                      <div id="slides__{index+1}" class="slide">
-                        <div onclick="location.href='http://localhost:4000/board/{popular.pk}'">
-                          <br>
-                          <div>{popular.division}</div>
-                          <hr style="width:20%;">
-                          <div>{popular.no}. {popular.title}</div>
-                          <hr style="width:20%;">
-                          <div>click : {popular.click}</div>
-                        </div>
-                        <a class="slide__prev" href="#slides__{popular.length}" title="Prev"></a>
-                        <a class="slide__next" href="#slides__{index+2}" title="Next"></a>  
+    <!-- 인기글 탭 -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="slider-container">
+            <div class="slider">
+              <div class="slides">
+                {#each items.view.popularList as popular, index}
+                  {#if index < 1}
+                    <div id="slides__{index+1}" class="slide">
+                      <div onclick="location.href='http://localhost:4000/board/{popular.pk}'">
+                        <br>
+                        <div>{popular.division}</div>
+                        <hr style="width:20%;">
+                        <div>{popular.no}. {popular.title}</div>
+                        <hr style="width:20%;">
+                        <div>click : {popular.click}</div>
                       </div>
-                    {:else if index > popular.length-2}
-                      <div id="slides__{index+1}" class="slide">
-                        <div onclick="location.href='http://localhost:4000/board/{popular.pk}'">
-                          <br>
-                          <div>{popular.division}</div>
-                          <hr style="width:20%;">
-                          <div>{popular.no}. {popular.title}</div>
-                          <hr style="width:20%;">
-                          <div>click : {popular.click}</div>
-                        </div>
-                        <a class="slide__prev" href="#slides__{index}" title="Prev"></a>
-                        <a class="slide__next" href="#slides__1" title="Next"></a>  
+                      <a class="slide__prev" href="#slides__{popular.length}" title="Prev"></a>
+                      <a class="slide__next" href="#slides__{index+2}" title="Next"></a>  
+                    </div>
+                  {:else if index > popular.length-2}
+                    <div id="slides__{index+1}" class="slide">
+                      <div onclick="location.href='http://localhost:4000/board/{popular.pk}'">
+                        <br>
+                        <div>{popular.division}</div>
+                        <hr style="width:20%;">
+                        <div>{popular.no}. {popular.title}</div>
+                        <hr style="width:20%;">
+                        <div>click : {popular.click}</div>
                       </div>
-                    {:else}
-                      <div id="slides__{index+1}" class="slide">
-                        <div  onclick="location.href='http://localhost:4000/board/{popular.pk}'">
-                          <br>
-                          <div>{popular.division}</div>
-                          <hr style="width:20%;">
-                          <div>{popular.title}</div>
-                          <hr style="width:20%;">
-                          <div>click : {popular.click}</div>
-                        </div>
-                        <a class="slide__prev" href="#slides__{index}" title="Prev"></a>
-                        <a class="slide__next" href="#slides__{index+2}" title="Next"></a>  
+                      <a class="slide__prev" href="#slides__{index}" title="Prev"></a>
+                      <a class="slide__next" href="#slides__1" title="Next"></a>  
+                    </div>
+                  {:else}
+                    <div id="slides__{index+1}" class="slide">
+                      <div  onclick="location.href='http://localhost:4000/board/{popular.pk}'">
+                        <br>
+                        <div>{popular.division}</div>
+                        <hr style="width:20%;">
+                        <div>{popular.title}</div>
+                        <hr style="width:20%;">
+                        <div>click : {popular.click}</div>
                       </div>
-                    {/if}
-                  {/each}
-                </div>
+                      <a class="slide__prev" href="#slides__{index}" title="Prev"></a>
+                      <a class="slide__next" href="#slides__{index+2}" title="Next"></a>  
+                    </div>
+                  {/if}
+                {/each}
               </div>
             </div>
           </div>
         </div>
       </div>
-      <hr>
-    {/each}
+    </div>
+    <hr>
   {:catch error}
     <p>{error}</p>
   {/await}
