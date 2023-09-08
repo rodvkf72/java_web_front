@@ -6,6 +6,7 @@
   let resultList = [];
   let paging = [];
 
+  /*
   onMount(async() => {
     resultList = [];
     paging = [];
@@ -26,6 +27,27 @@
     await result;
     resultList = list.list;
   })
+  */
+
+  $: projectList = fetch(`http://localhost:8080/project/${division}/list`,
+    {
+      method: 'POST',
+      headers: {
+        "Content-Type" : "application/json",
+      }
+    }
+  ).then((res) => {
+    return res.json();
+  }).then((result) => {
+    console.log(result);
+    return result;
+  })
+
+  let division = 'kyobo';
+
+  function topic(topic) {
+    division = topic;
+  }
 </script>
 
 <style>
@@ -74,6 +96,65 @@
 
   .card-date {
     font-size: 0.8em;
+  }
+
+  .border {
+    font-size: 0.8em;
+    margin: 5px;
+    border: 1px;
+    border-radius: 5px;
+  }
+
+  .active {
+    background-color:#42454c;
+    color:#fff;
+    border:1px solid #42454c;
+  }
+
+  .image-box {
+    width: 40%;
+    height: 200px;
+    display: inline-block;
+  }
+
+  .content-box {
+    position: relative;
+    width: 54%;
+    height: 200px;
+    display: inline-table;
+    margin: auto;
+    vertical-align: top;
+  }
+
+  .post-title {
+    margin: auto;
+    text-align: center;
+    width: 80%;
+    height: 65%;
+  }
+
+  .post-title p {
+    font-size: 20px;
+    text-overflow: hidden;
+    margin-top: 30px;
+    word-break: break-all;
+  }
+
+  .post-writer {
+    margin-top: -7%;
+    margin-right: -8%;
+    text-align: center;
+  }
+
+  .post-writer p {
+    font-size: 15px;
+    text-overflow: hidden;
+    color: gray;
+    word-break: break-all;
+  }
+
+  .post-preview:hover {
+    background-color: rgba(0, 0, 0, 0.1);
   }
 </style>
 
@@ -150,6 +231,114 @@
   </header>
   
   <div class="container">
+    <div class="row">
+      <!-- 좌측 공백용 -->
+      <div class="col-lg-3 center">
+      </div>
+
+      {#if division == 'kyobo'}
+        <div id="kyobo" class="col-lg-2 center border active" on:click={() => topic('kyobo')}>
+          교보정보통신
+        </div>
+      {:else}
+        <div id="kyobo" class="col-lg-2 center border" on:click={() => topic('kyobo')}>
+          교보정보통신
+        </div>
+      {/if}
+
+      {#if division == 'iacts'}
+        <div id="iacts" class="col-lg-2 center border active" on:click={() => topic('iacts')}>
+          iActs
+        </div>
+      {:else}
+        <div id="iacts" class="col-lg-2 center border" on:click={() => topic('iacts')}>
+          iActs
+        </div>
+      {/if}
+
+      {#if division == 'etc'}
+        <div id="etc" class="col-lg-2 center border active" on:click={() => topic('etc')}>
+          학부 및 개인
+        </div>
+      {:else}
+        <div id="etc" class="col-lg-2 center border" on:click={() => topic('etc')}>
+          학부 및 개인
+        </div>
+      {/if}
+
+      <!-- 우측 공백용 -->
+      <div class="col-lg-3 center">
+      </div>
+    </div>
+
+    <!--
+    <hr>
+    <div class="col-lg-12">
+      <div class="row">
+        {#await projectList}
+          <div class="loading-container" id="loading-bar">
+            <div class="loading"></div>
+            <div id="loading-text">loading</div>
+          </div>
+        {:then projectList}
+          {#each projectList.projectList as project, index}
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100">
+                <a href="#"><img class="card-img-top" src="../../resources/image/pop_bg.png" alt=""></a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    {project.title}
+                  </h4>
+                  <p class="card-text">
+                    {project.startDate} ~ {project.endDate}
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">완성도 : {project.complete}</small>
+                </div>
+              </div>
+            </div>
+          {/each}
+        {:catch error}
+          <p>서버가 아파요 ㅠㅠ</p>
+        {/await}
+      </div>
+    </div>
+    -->
+
+    <div class="col-lg-8 col-md-10 mx-auto">
+      <table width="100%;" id="tbl">
+        {#await projectList}
+          <div class="loading-container" id="loading-bar">
+            <div class="loading"></div>
+            <div id="loading-text">loading</div>
+          </div>
+        {:then projectList}
+          {#each projectList.projectList as project, index}
+            <hr>
+            <div class="post-preview" onclick="location.href='/project/{project.pk}'" style="cursor: pointer;">
+              <div class="image-box">
+                <img src="https://blog.jinbo.net/attach/615/200937431.jpg" style="width: 100%; height: 100%;" alt="thumb"/>
+              </div>
+              <div class="content-box">
+                <div class="post-title">
+                  <p>{project.title}</p>
+                </div>
+                <div class="post-writer">
+                  <!--<p>Posted by {item.writer} on {item.date}</p>-->
+                  <p>{project.startDate} ~ endDate</p>
+                </div>
+              </div>
+            </div>
+          {/each}
+        {:catch error}
+          <p>서버가 아파요 ㅠㅠ</p>
+        {/await}
+      </table>
+      <hr>
+    </div>
+
+    <!--
     <div class="row">
       <div class="col-lg-12">
         <h3 style="text-align:center">업무 프로젝트</h3>
@@ -504,4 +693,5 @@
         </div>
       </div>
     </div>
+    -->
   </div>

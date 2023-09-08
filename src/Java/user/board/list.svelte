@@ -56,8 +56,8 @@
 
 <style>
   .page_wrap {
-        text-align:center;
-        font-size:0;
+    text-align:center;
+    font-size:0;
   }
 
   .image-box {
@@ -75,10 +75,10 @@
   }
 
   .post-title {
-    margin-right: -8%;
+    margin: auto;
     text-align: center;
+    width: 80%;
     height: 65%;
-    vertical-align: top;
   }
 
   .post-title p {
@@ -89,10 +89,9 @@
   }
 
   .post-writer {
+    margin-top: -7%;
     margin-right: -8%;
     text-align: center;
-    height: 35%;
-    vertical-align: bottom;
   }
 
   .post-writer p {

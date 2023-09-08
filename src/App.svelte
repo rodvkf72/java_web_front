@@ -15,17 +15,20 @@
   import OnlinejudgeSelect from './Java/user/onlinejudge/select.svelte';
   import OnlinejudgeList from './Java/user/onlinejudge/list.svelte';
   import OnlinejudgeView from './Java/user/onlinejudge/view.svelte';
-  import Project from './Java/user/project/project.svelte';
-  import ProjectDetail from "./Java/user/project/projectDetail.svelte";
+  import ProjectList from './Java/user/project/list.svelte';
+  import ProjectView from "./Java/user/project/view.svelte";
   import MyInfo from './Java/user/info/myinfo.svelte';
 
   import ManageHead from './Java/manage/subpage/head.svelte';
   import ManageNav from './Java/manage/subpage/nav.svelte';
   import ManageMain from './Java/manage/main.svelte';
-  import ManageList from './Java/manage/board/board.svelte';
-  import ManageDetail from './Java/manage/board/boardDetail.svelte';
-  import ManageProjectList from './Java/manage/project/project.svelte';
-  import ManageProjectDetail from './Java/manage/project/projectDetail.svelte';
+  import ManageBoardList from './Java/manage/board/list.svelte';
+  import ManageBoardView from './Java/manage/board/view.svelte';
+  import ManageOnlinejudgeSelect from './Java/manage/onlinejudge/select.svelte';
+  import ManageOnlinejudgeList from './Java/manage/onlinejudge/list.svelte';
+  import ManageOnlinejudgeView from './Java/manage/onlinejudge/view.svelte';
+  import ManageProjectList from './Java/manage/project/list.svelte';
+  import ManageProjectView from './Java/manage/project/view.svelte';
   import ManageLogin from './Java/manage/login/login.svelte';
 </script>
 
@@ -59,21 +62,36 @@ p img {
   <ManageHead/>
   <ManageNav/>
 
-  <Route path="/:division/*" let:meta1>
-    <Route path="/s/:page" let:meta2>
-      <ManageList division={meta1.params.division} page={meta2.params.page}/>
-    </Route>
-    <Route path="/:no" let:meta2>
-      <ManageDetail division={meta1.params.division} no={meta2.params.no}/>
-    </Route>
-  </Route>
-
   <Route path="/main">
     <ManageMain/>
   </Route>
   <Route path="/login">
     <ManageLogin/>
   </Route>
+
+  <Route path="/board/*">
+    <Route path="/">
+      <ManageBoardList/>
+    </Route>
+    <Route path="/:no" let:meta>
+      <ManageBoardView no={meta.params.no}/>
+    </Route>
+  </Route>
+
+  <Route path="/onlinejudge/*">
+    <Route path="/">
+      <ManageOnlinejudgeSelect/>
+    </Route>
+    <Route path="/:divi/*" let:meta1>
+      <Route path="/">
+        <ManageOnlinejudgeList divi={meta1.params.divi}/>
+      </Route>
+      <Route path="/:no" let:meta2>
+        <ManageOnlinejudgeView divi={meta1.params.divi} no={meta2.params.no}/>
+      </Route>
+    </Route>
+  </Route>
+
   <Footer/>
 </Route>
 
@@ -109,74 +127,50 @@ p img {
 </Route>
 
 <Route path="/project">
-<Head/>
-<Nav/>
-<Project/>
-<Footer/>
+  <Head/>
+  <Nav/>
+  <ProjectList/>
+  <Footer/>
 </Route>
 
 <Route path="/board/*">
-<Head/>
-<Nav/>
-<Route path="/">
-  <BoardList/>
+  <Head/>
+  <Nav/>
+  <Route path="/">
+    <BoardList/>
+  </Route>
+  <Route path="/:no" let:meta>
+    <BoardView no={meta.params.no}/>
+      <Utterances
+        repo="rodvkf72/Utterances"
+        theme="github-light"
+        issueTerm="url"
+      />
+      <hr>
+  </Route>
+  <Footer/>
 </Route>
-<Route path="/:no" let:meta>
-  <BoardView no={meta.params.no}/>
-    <Utterances
-      repo="rodvkf72/Utterances"
-      theme="github-light"
-      issueTerm="url"
-    />
-    <hr>
-</Route>
-<Footer/>
-</Route>
+
 
 <Route path="/onlinejudge/*">
-<Head/>
-<Nav/>
-<Route path="/">
-  <OnlinejudgeSelect/>
-</Route>
-<Route path="/:divi/*" let:meta1>
+  <Head/>
+  <Nav/>
   <Route path="/">
-    <OnlinejudgeList divi={meta1.params.divi}/>
+    <OnlinejudgeSelect/>
   </Route>
-  <Route path="/:no" let:meta2>
-    <OnlinejudgeView divi={meta1.params.divi} no={meta2.params.no}/>
-    <Utterances
-      repo="rodvkf72/Utterances"
-      theme="github-light"
-      issueTerm="url"
-    />
-    <hr>
+  <Route path="/:divi/*" let:meta1>
+    <Route path="/">
+      <OnlinejudgeList divi={meta1.params.divi}/>
+    </Route>
+    <Route path="/:no" let:meta2>
+      <OnlinejudgeView divi={meta1.params.divi} no={meta2.params.no}/>
+      <Utterances
+        repo="rodvkf72/Utterances"
+        theme="github-light"
+        issueTerm="url"
+      />
+      <hr>
+    </Route>
   </Route>
+  <Footer/>
 </Route>
-<Footer/>
-</Route>
-
-<!--
-<Route path="/board/*">
-<Head/>
-<Nav/>
-<Route path="/">
-  <Coding/>
-</Route>
-<Route path="/:divi/*" let:meta1>
-  <Route path="/:page" let:meta2>
-    <Board divi={meta1.params.divi} page={meta2.params.page}/>
-  </Route>
-  <Route path="/view/:no" let:meta2>
-    <BoardDetail divi={meta1.params.divi} no={meta2.params.no}/>
-    <Utterances
-      repo="rodvkf72/Utterances"
-      theme="github-light"
-      issueTerm="url"
-    />
-    <hr>
-  </Route>
-</Route>
-<Footer/>
-</Route>
--->

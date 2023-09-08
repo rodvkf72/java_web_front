@@ -41,8 +41,8 @@
 <br><br><br><br><br><br><br><br><br><br>
 <div class="area">
     <form id="form" enctype="multipart/form-data" method="post" action="http://localhost:8080/login" on:submit|preventDefault={loginSubmit}>
-        <input type="id" name="id" id="id"/>
-        <input type="pw" name="pw" id="pw"/>
+        <input type="text" name="id" id="id"/>
+        <input type="password" name="pw" id="pw"/>
         
         <input type="submit" value="로그인"/>
     </form>

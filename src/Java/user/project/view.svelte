@@ -6,27 +6,16 @@
     let max;
     let resultList = [];
     let paging = [];
-  
-    onMount(async() => {
-      resultList = [];
-      paging = [];
-      let list = [];
-      let result = fetch('http://localhost:8080/project/' + no,
-        {
-          method: 'POST',
-          headers: {
-            "Content-Type" : "application/json",
-          }
+
+    $: promise = fetch(`http://localhost:8080/project/${pk}`,
+      {
+        method: 'POST',
+        headers: {
+          "Content-Type" : "application/json",
         }
-      ).then((res) => {
-        return res.json();
-      }).then((json) => {
-        list = json;
-      });
-  
-      await result;
-      resultList = list.list;
-      console.log(resultList);
+      }
+    ).then((res) => {
+      return res.json();
     })
   </script>
   
